@@ -1,7 +1,7 @@
 .PHONY: test
 
-compile: *.ttl test
-	poetry run python compile.py
+compile: model/*.ttl test
+	poetry run python tools/compile.py
 
-test: compile
+test:
 	poetry run pytest -s -vvvv
