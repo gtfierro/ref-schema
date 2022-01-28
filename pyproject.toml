@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "ref-ontology"
+name = "ref-schema"
 version = "0.1.0"
-description = "An RDF data model for capturing references to other protocols and systems"
+description = "An RDF schema for capturing references to other protocols and systems"
 authors = ["Gabe Fierro <gtfierro@mines.edu>"]
 license = "bsd-3-clause"
 
