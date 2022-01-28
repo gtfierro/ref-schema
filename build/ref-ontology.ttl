@@ -1,0 +1,163 @@
+@prefix bacnet: <http://data.ashrae.org/bacnet/2020#> .
+@prefix bacnetref: <http://data.ashrae.org/standard223/ref/bacnet#> .
+@prefix core: <http://data.ashrae.org/standard223/ref/core#> .
+@prefix ifc: <http://data.ashrae.org/standard223/ref/ifc#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ref: <http://data.ashrae.org/standard223/ref#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix tsdb: <http://data.ashrae.org/standard223/ref/tsdb#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ref: a owl:Ontology ;
+    owl:imports bacnetref:,
+        core:,
+        ifc:,
+        tsdb: .
+
+ref:IFCReference a owl:Class,
+        sh:NodeShape ;
+    rdfs:subClassOf ref:ExternalReference ;
+    sh:property [ a sh:PropertyShape ;
+            skos:definition "Name of the entity in IFC" ;
+            sh:datatype xsd:string ;
+            sh:path ifc:name ],
+        [ a sh:PropertyShape ;
+            skos:definition "The global ID of the entity in the IFC project" ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path ifc:globalID ],
+        [ a sh:PropertyShape ;
+            skos:definition "Reference to an IFC Project object, containing the project ID" ;
+            sh:class ifc:Project ;
+            sh:minCount 1 ;
+            sh:path ifc:hasProjectReference ] .
+
+ref:hasExternalRepresentation a owl:ObjectProperty,
+        sh:PropertyShape ;
+    rdfs:label "hasExternalRepresentation" ;
+    skos:definition "" ;
+    sh:class ref:ExternalReference .
+
+ref:hasTimeseriesReference a owl:ObjectProperty,
+        sh:PropertyShape ;
+    rdfs:subPropertyOf ref:hasExternalReference ;
+    skos:definition "Metadata for accessing related timeseries data",
+        "Relates a Brick point to the TimeseriesReference that indicates where and how the data for this point is stored"@en ;
+    sh:class ref:TimeseriesReference .
+
+bacnetref:BACnetURI a owl:DatatypeProperty .
+
+bacnetref:read-property a owl:DatatypeProperty .
+
+rdf:BACnetReference a owl:Class,
+        sh:NodeShape ;
+    rdfs:subClassOf ref:ExternalReference ;
+    sh:or ( [ sh:property [ a sh:PropertyShape ;
+                        sh:datatype xsd:string ;
+                        sh:defaultValue "present-value" ;
+                        sh:path ref:read-property ],
+                    [ a sh:PropertyShape ;
+                        sh:datatype xsd:string ;
+                        sh:path bacnet:object-type ],
+                    [ a sh:PropertyShape ;
+                        sh:datatype xsd:string ;
+                        sh:path bacnet:description ],
+                    [ a sh:PropertyShape ;
+                        sh:datatype xsd:string ;
+                        sh:minLength 1 ;
+                        sh:path bacnet:object-name ],
+                    [ a sh:PropertyShape ;
+                        sh:datatype xsd:string ;
+                        sh:minCount 1 ;
+                        sh:path bacnet:object-identifier ] ] [ sh:property [ a sh:PropertyShape ;
+                        skos:definition "Clause Q.8 BACnet URI scheme: bacnet:// <device> / <object> [ / <property> [ / <index> ]]" ;
+                        sh:datatype xsd:string ;
+                        sh:path ref:BACnetURI ] ] ) ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class bacnet:BACnetDevice ;
+            sh:minCount 1 ;
+            sh:path bacnet:objectOf ] .
+
+bacnet:description a bacnet:StandardProperty,
+        owl:DatatypeProperty ;
+    bacnet:propertyEnum bacnet:PropertyIdentifier-description ;
+    bacnet:propertyName "description" ;
+    bacnet:propertyRef bacnet:Description .
+
+bacnet:object-identifier a bacnet:StandardProperty,
+        rdf:Property,
+        owl:DatatypeProperty ;
+    rdfs:label "object-identifier" ;
+    bacnet:propertyEnum bacnet:PropertyIdentifier-object-identifier ;
+    bacnet:propertyName "object-identifier" ;
+    bacnet:propertyOf bacnet:Object ;
+    bacnet:propertyRef bacnet:Object_Identifier ;
+    rdfs:subPropertyOf bacnet:ReadableProperty .
+
+bacnet:object-name a bacnet:StandardProperty,
+        owl:DatatypeProperty ;
+    bacnet:propertyEnum bacnet:PropertyIdentifier-object-name ;
+    bacnet:propertyName "object-name" ;
+    bacnet:propertyOf bacnet:Object ;
+    bacnet:propertyRef bacnet:Object_Name ;
+    rdfs:subPropertyOf bacnet:ReadableProperty .
+
+bacnet:object-type a bacnet:StandardProperty,
+        rdf:Property,
+        owl:DatatypeProperty ;
+    rdfs:label "object-type" ;
+    bacnet:propertyEnum bacnet:PropertyIdentifier-object-type ;
+    bacnet:propertyName "object-type" ;
+    bacnet:propertyOf bacnet:Object ;
+    bacnet:propertyRef bacnet:Object_Type ;
+    rdfs:subPropertyOf bacnet:ReadableProperty .
+
+bacnet:objectOf a owl:ObjectProperty .
+
+ref:TimeseriesReference a owl:Class,
+        sh:NodeShape ;
+    rdfs:subClassOf ref:ExternalReference ;
+    sh:property [ a sh:PropertyShape ;
+            skos:definition "The identifier for the timeseries data corresponding to this point" ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path tsdb:hasTimeseriesId ],
+        [ a sh:PropertyShape ;
+            skos:definition "Refers to a database storing the timeseries data for the related point. Properties on this class are *to be determined*; feel free to add arbitrary properties onto Database instances for your particular deployment" ;
+            sh:datatype xsd:string ;
+            sh:path tsdb:storedAt ] .
+
+bacnetref: a owl:Ontology ;
+    owl:imports bacnet:,
+        core: .
+
+ifc: a owl:Ontology ;
+    owl:imports core: .
+
+ifc:globalID a owl:DatatypeProperty ;
+    rdfs:range xsd:string .
+
+ifc:hasProjectReference a owl:ObjectProperty .
+
+ifc:name a owl:DatatypeProperty ;
+    rdfs:range xsd:string .
+
+tsdb: a owl:Ontology ;
+    owl:imports core: .
+
+tsdb:hasTimeseriesId a owl:DatatypeProperty ;
+    skos:definition "The unique identifier (primary key) for this TimeseriesReference in some database"@en .
+
+tsdb:storedAt a owl:DatatypeProperty ;
+    skos:definition "A reference to where the data for this TimeseriesReference is stored"@en .
+
+ref:ExternalReference a owl:Class,
+        sh:NodeShape ;
+    rdfs:label "External reference" ;
+    skos:definition "" .
+
+core: a owl:Ontology .
+

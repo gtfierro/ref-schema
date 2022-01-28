@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "ref-ontology"
+version = "0.1.0"
+description = "An RDF data model for capturing references to other protocols and systems"
+authors = ["Gabe Fierro <gtfierro@mines.edu>"]
+license = "bsd-3-clause"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+rdflib = "^6.1"
+pyshacl = "^0.18"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2"
+ontoenv = "^0.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

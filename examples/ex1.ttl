@@ -1,0 +1,30 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix ref: <http://data.ashrae.org/standard223/ref#> .
+@prefix s223: <http://data.ashrae.org/standard223#> .
+@prefix bacnet: <http://data.ashrae.org/bacnet/2020#> .
+@prefix tsdb: <http://data.ashrae.org/standard223/ref/tsdb#> .
+@prefix : <urn:ex1> .
+
+<urn:ex1>
+  a owl:Ontology ;
+  owl:imports <http://data.ashrae.org/standard223/ref> ;
+.
+
+:sample-device a bacnet:BACnetDevice ;
+    bacnet:device-instance 123 ;
+    # is this correct?
+    bacnet:hasPort [ a bacnet:Port ; bacnet:value 47808 ] .
+
+:xyz a s223:Property ;
+  ref:hasExternalRepresentation [
+    a ref:TimeseriesReference ;
+    tsdb:hasTimeseriesId "4665117e-ec75-47c2-a5ce-b71529cb159e" ;
+    tsdb:storedAt "postgresql://dataserver/sensordatadb" ;
+  ] ;
+  ref:hasExternalRepresentation [
+    a ref:BACnetReference ;
+    bacnet:object-identifier "analog-value,5" ;
+    bacnet:object-name "BLDG-Z410-ZATS" ;
+    bacnet:objectOf :sample-device ;
+  ] ;
+.

@@ -1,0 +1,54 @@
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix ref: <http://data.ashrae.org/standard223/ref#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix bacnet: <http://data.ashrae.org/bacnet/2020#> .
+@prefix bacnetref: <http://data.ashrae.org/standard223/ref/bacnet#> .
+
+bacnetref: a owl:Ontology ;
+    owl:imports bacnet: ;
+    owl:imports <http://data.ashrae.org/standard223/ref/core#> ;
+.
+
+###### BACnetReference
+bacnet:description a bacnet:StandardProperty,
+        owl:DatatypeProperty ;
+    bacnet:propertyEnum bacnet:PropertyIdentifier-description ;
+    bacnet:propertyName "description" ;
+    bacnet:propertyRef bacnet:Description .
+
+bacnet:object-identifier a bacnet:StandardProperty,
+        rdf:Property,
+        owl:DatatypeProperty ;
+    rdfs:label "object-identifier" ;
+    bacnet:propertyEnum bacnet:PropertyIdentifier-object-identifier ;
+    bacnet:propertyName "object-identifier" ;
+    bacnet:propertyOf bacnet:Object ;
+    bacnet:propertyRef bacnet:Object_Identifier ;
+    rdfs:subPropertyOf bacnet:ReadableProperty .
+
+bacnet:object-name a bacnet:StandardProperty,
+        owl:DatatypeProperty ;
+    bacnet:propertyEnum bacnet:PropertyIdentifier-object-name ;
+    bacnet:propertyName "object-name" ;
+    bacnet:propertyOf bacnet:Object ;
+    bacnet:propertyRef bacnet:Object_Name ;
+    rdfs:subPropertyOf bacnet:ReadableProperty .
+
+bacnet:object-type a bacnet:StandardProperty,
+        rdf:Property,
+        owl:DatatypeProperty ;
+    rdfs:label "object-type" ;
+    bacnet:propertyEnum bacnet:PropertyIdentifier-object-type ;
+    bacnet:propertyName "object-type" ;
+    bacnet:propertyOf bacnet:Object ;
+    bacnet:propertyRef bacnet:Object_Type ;
+    rdfs:subPropertyOf bacnet:ReadableProperty .
+
+bacnet:objectOf a owl:ObjectProperty .
+
+bacnetref:read-property a owl:DatatypeProperty .
+bacnetref:BACnetURI a owl:DatatypeProperty .

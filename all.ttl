@@ -1,0 +1,78 @@
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix ref: <http://data.ashrae.org/standard223/ref#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix bacnet: <http://data.ashrae.org/bacnet/2020#> .
+@prefix ifc: <http://data.ashrae.org/standard223/ref/ifc#> .
+@prefix tsdb: <http://data.ashrae.org/standard223/ref/tsdb#> .
+
+ref: a owl:Ontology ;
+    owl:imports <http://data.ashrae.org/standard223/ref/core#> ;
+    owl:imports <http://data.ashrae.org/standard223/ref/bacnet#> ;
+    owl:imports <http://data.ashrae.org/standard223/ref/ifc#> ;
+    owl:imports <http://data.ashrae.org/standard223/ref/tsdb#> ;
+.
+
+rdf:BACnetReference a owl:Class,
+        sh:NodeShape ;
+    rdfs:subClassOf ref:ExternalReference ;
+    sh:or ( [ sh:property [ a sh:PropertyShape ;
+                        sh:datatype xsd:string ;
+                        sh:defaultValue "present-value" ;
+                        sh:path ref:read-property ],
+                    [ a sh:PropertyShape ;
+                        sh:datatype xsd:string ;
+                        sh:path bacnet:object-type ],
+                    [ a sh:PropertyShape ;
+                        sh:datatype xsd:string ;
+                        sh:path bacnet:description ],
+                    [ a sh:PropertyShape ;
+                        sh:datatype xsd:string ;
+                        sh:minLength 1 ;
+                        sh:path bacnet:object-name ],
+                    [ a sh:PropertyShape ;
+                        sh:datatype xsd:string ;
+                        sh:minCount 1 ;
+                        sh:path bacnet:object-identifier ] ] [ sh:property [ a sh:PropertyShape ;
+                        skos:definition "Clause Q.8 BACnet URI scheme: bacnet:// <device> / <object> [ / <property> [ / <index> ]]" ;
+                        sh:datatype xsd:string ;
+                        sh:path ref:BACnetURI ] ] ) ;
+    sh:property [ a sh:PropertyShape ;
+            sh:class bacnet:BACnetDevice ;
+            sh:minCount 1 ;
+            sh:path bacnet:objectOf ] .
+
+ref:IFCReference a owl:Class,
+        sh:NodeShape ;
+    rdfs:subClassOf ref:ExternalReference ;
+    sh:property [ a sh:PropertyShape ;
+            skos:definition "Name of the entity in IFC" ;
+            sh:datatype xsd:string ;
+            sh:path ifc:name ],
+        [ a sh:PropertyShape ;
+            skos:definition "The global ID of the entity in the IFC project" ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path ifc:globalID ],
+        [ a sh:PropertyShape ;
+            skos:definition "Reference to an IFC Project object, containing the project ID" ;
+            sh:class ifc:Project ;
+            sh:minCount 1 ;
+            sh:path ifc:hasProjectReference ] .
+
+ref:TimeseriesReference a owl:Class,
+        sh:NodeShape ;
+    rdfs:subClassOf ref:ExternalReference ;
+    sh:property [ a sh:PropertyShape ;
+            skos:definition "The identifier for the timeseries data corresponding to this point" ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path tsdb:hasTimeseriesId ],
+        [ a sh:PropertyShape ;
+            skos:definition "Refers to a database storing the timeseries data for the related point. Properties on this class are *to be determined*; feel free to add arbitrary properties onto Database instances for your particular deployment" ;
+            sh:datatype xsd:string ;
+            sh:path tsdb:storedAt ] .
+
