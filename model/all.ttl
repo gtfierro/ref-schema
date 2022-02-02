@@ -1,19 +1,19 @@
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
-@prefix ref: <http://data.ashrae.org/standard223/ref#> .
+@prefix ref: <https://brickschema.org/schema/Brick/ref#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix bacnet: <http://data.ashrae.org/bacnet/2020#> .
-@prefix ifc: <http://data.ashrae.org/standard223/ref/ifc#> .
-@prefix tsdb: <http://data.ashrae.org/standard223/ref/tsdb#> .
+@prefix ifc: <https://brickschema.org/schema/Brick/ref/ifc#> .
+@prefix tsdb: <https://brickschema.org/schema/Brick/ref/tsdb#> .
 
 ref: a owl:Ontology ;
-    owl:imports <http://data.ashrae.org/standard223/ref/core#> ;
-    owl:imports <http://data.ashrae.org/standard223/ref/bacnet#> ;
-    owl:imports <http://data.ashrae.org/standard223/ref/ifc#> ;
-    owl:imports <http://data.ashrae.org/standard223/ref/tsdb#> ;
+    owl:imports <https://brickschema.org/schema/Brick/ref/core#> ;
+    owl:imports <https://brickschema.org/schema/Brick/ref/bacnet#> ;
+    owl:imports <https://brickschema.org/schema/Brick/ref/ifc#> ;
+    owl:imports <https://brickschema.org/schema/Brick/ref/tsdb#> ;
 .
 
 rdf:BACnetReference a owl:Class,

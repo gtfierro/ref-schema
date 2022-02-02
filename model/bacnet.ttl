@@ -1,16 +1,16 @@
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
-@prefix ref: <http://data.ashrae.org/standard223/ref#> .
+@prefix ref: <https://brickschema.org/schema/Brick/ref#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix bacnet: <http://data.ashrae.org/bacnet/2020#> .
-@prefix bacnetref: <http://data.ashrae.org/standard223/ref/bacnet#> .
+@prefix bacnetref: <https://brickschema.org/schema/Brick/ref/bacnet#> .
 
 bacnetref: a owl:Ontology ;
     owl:imports bacnet: ;
-    owl:imports <http://data.ashrae.org/standard223/ref/core#> ;
+    owl:imports <https://brickschema.org/schema/Brick/ref/core#> ;
 .
 
 ###### BACnetReference

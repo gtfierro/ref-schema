@@ -4,8 +4,8 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix ref: <http://data.ashrae.org/standard223/ref#> .
-@prefix core: <http://data.ashrae.org/standard223/ref/core#> .
+@prefix ref: <https://brickschema.org/schema/Brick/ref#> .
+@prefix core: <https://brickschema.org/schema/Brick/ref/core#> .
 
 core: a owl:Ontology .
 
