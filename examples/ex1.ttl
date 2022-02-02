@@ -16,12 +16,12 @@
     bacnet:hasPort [ a bacnet:Port ; bacnet:value 47808 ] .
 
 :xyz a s223:Property ;
-  ref:hasExternalRepresentation [
+  ref:hasExternalReference [
     a ref:TimeseriesReference ;
     tsdb:hasTimeseriesId "4665117e-ec75-47c2-a5ce-b71529cb159e" ;
     tsdb:storedAt "postgresql://dataserver/sensordatadb" ;
   ] ;
-  ref:hasExternalRepresentation [
+  ref:hasExternalReference [
     a ref:BACnetReference ;
     bacnet:object-identifier "analog-value,5" ;
     bacnet:object-name "BLDG-Z410-ZATS" ;

@@ -16,8 +16,8 @@ ref:ExternalReference
   skos:definition "";
 .
 
-ref:hasExternalRepresentation a owl:ObjectProperty, sh:PropertyShape ;
+ref:hasExternalReference a owl:ObjectProperty, sh:PropertyShape ;
     sh:class ref:ExternalReference ;
-    rdfs:label "hasExternalRepresentation" ;
+    rdfs:label "hasExternalReference" ;
     skos:definition "" ;
 .
