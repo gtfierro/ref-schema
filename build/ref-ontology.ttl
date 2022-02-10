@@ -35,9 +35,9 @@ ref:IFCReference a owl:Class,
             sh:minCount 1 ;
             sh:path ifc:hasProjectReference ] .
 
-ref:hasExternalRepresentation a owl:ObjectProperty,
+ref:hasExternalReference a owl:ObjectProperty,
         sh:PropertyShape ;
-    rdfs:label "hasExternalRepresentation" ;
+    rdfs:label "hasExternalReference" ;
     skos:definition "" ;
     sh:class ref:ExternalReference .
 
