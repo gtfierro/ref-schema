@@ -33,6 +33,7 @@ jobs:
         poetry run pytest -s -vvvv
     - name: Compile
       run: |
+        mkdir build
         poetry run python tools/compile.py
     - uses: marvinpinto/action-automatic-releases@latest
       with:
