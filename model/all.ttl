@@ -16,7 +16,7 @@ ref: a owl:Ontology ;
     owl:imports <https://brickschema.org/schema/Brick/ref/tsdb#> ;
 .
 
-rdf:BACnetReference a owl:Class,
+ref:BACnetReference a owl:Class,
         sh:NodeShape ;
     rdfs:subClassOf ref:ExternalReference ;
     sh:or ( [ sh:property [ a sh:PropertyShape ;

@@ -11,14 +11,27 @@ tsdb: a owl:Ontology ;
   owl:imports <https://brickschema.org/schema/Brick/ref/core#> ;
 .
 
-ref:hasTimeseriesReference a owl:ObjectProperty, sh:PropertyShape ;
+ref:hasTimeseriesReference a owl:ObjectProperty;
     sh:class ref:TimeseriesReference ;
     rdfs:subPropertyOf ref:hasExternalReference ;
     skos:definition "Metadata for accessing related timeseries data",
         "Relates a Brick point to the TimeseriesReference that indicates where and how the data for this point is stored"@en .
 
 tsdb:storedAt a owl:DatatypeProperty ;
+    rdfs:range xsd:anyURI ;
     skos:definition "A reference to where the data for this TimeseriesReference is stored"@en .
 
 tsdb:hasTimeseriesId a owl:DatatypeProperty ;
+    rdfs:range xsd:string ;
     skos:definition "The unique identifier (primary key) for this TimeseriesReference in some database"@en .
+
+tsdb:TimeseriesReferenceShape a sh:NodeShape ;
+    sh:targetObjectsOf ref:hasExternalReference ;
+    sh:rule [
+      a sh:TripleRule ;
+      sh:condition ref:TimeseriesReference ;
+      sh:subject sh:this ;
+      sh:predicate rdf:type ;
+      sh:object ref:TimeseriesReference ;
+    ] ;
+.

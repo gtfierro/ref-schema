@@ -18,3 +18,14 @@ ifc:globalID a owl:DatatypeProperty ;
 
 ifc:name a owl:DatatypeProperty ;
     rdfs:range xsd:string .
+
+ifc:IFCReferenceShape a sh:NodeShape ;
+    sh:targetObjectsOf ref:hasExternalReference ;
+    sh:rule [
+      a sh:TripleRule ;
+      sh:condition ref:IFCReference ;
+      sh:subject sh:this ;
+      sh:predicate rdf:type ;
+      sh:object ref:IFCReference ;
+    ] ;
+.

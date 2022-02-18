@@ -52,3 +52,14 @@ bacnet:objectOf a owl:ObjectProperty .
 
 bacnetref:read-property a owl:DatatypeProperty .
 bacnetref:BACnetURI a owl:DatatypeProperty .
+
+bacnetref:BACnetReferenceShape a sh:NodeShape ;
+    sh:targetObjectsOf ref:hasExternalReference ;
+    sh:rule [
+      a sh:TripleRule ;
+      sh:condition ref:BACnetReference ;
+      sh:subject sh:this ;
+      sh:predicate rdf:type ;
+      sh:object ref:BACnetReference ;
+    ] ;
+.

@@ -16,8 +16,12 @@ ref:ExternalReference
   skos:definition "";
 .
 
-ref:hasExternalReference a owl:ObjectProperty, sh:PropertyShape ;
-    sh:class ref:ExternalReference ;
+ref:hasExternalReference a owl:ObjectProperty ;
     rdfs:label "hasExternalReference" ;
     skos:definition "" ;
+.
+
+core:ExternalReferenceShape a sh:NodeShape ;
+    sh:targetObjectsOf ref:hasExternalReference ;
+    sh:class ref:ExternalReference ;
 .
