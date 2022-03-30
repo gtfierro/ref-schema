@@ -51,17 +51,17 @@ ref:IFCReference a owl:Class,
     sh:property [ a sh:PropertyShape ;
             skos:definition "Name of the entity in IFC" ;
             sh:datatype xsd:string ;
-            sh:path ifc:name ],
+            sh:path ref:ifcName ],
         [ a sh:PropertyShape ;
             skos:definition "The global ID of the entity in the IFC project" ;
             sh:datatype xsd:string ;
             sh:minCount 1 ;
-            sh:path ifc:globalID ],
+            sh:path ref:ifcGlobalID ],
         [ a sh:PropertyShape ;
             skos:definition "Reference to an IFC Project object, containing the project ID" ;
-            sh:class ifc:Project ;
+            sh:class ref:ifcProject ;
             sh:minCount 1 ;
-            sh:path ifc:hasProjectReference ] .
+            sh:path ref:hasIfcProjectReference ] .
 
 ref:TimeseriesReference a owl:Class,
         sh:NodeShape ;
@@ -70,9 +70,9 @@ ref:TimeseriesReference a owl:Class,
             skos:definition "The identifier for the timeseries data corresponding to this point" ;
             sh:datatype xsd:string ;
             sh:minCount 1 ;
-            sh:path tsdb:hasTimeseriesId ],
+            sh:path ref:hasTimeseriesId ],
         [ a sh:PropertyShape ;
             skos:definition "Refers to a database storing the timeseries data for the related point. Properties on this class are *to be determined*; feel free to add arbitrary properties onto Database instances for your particular deployment" ;
             sh:datatype xsd:string ;
-            sh:path tsdb:storedAt ] .
+            sh:path ref:storedAt ] .
 

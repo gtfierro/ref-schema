@@ -10,8 +10,8 @@
 
 bacnetref: a owl:Ontology ;
     owl:imports bacnet: ;
-    owl:imports <https://brickschema.org/schema/Brick/ref/core#> ;
 .
+
 
 ###### BACnetReference
 bacnet:description a bacnet:StandardProperty,
@@ -50,10 +50,10 @@ bacnet:object-type a bacnet:StandardProperty,
 
 bacnet:objectOf a owl:ObjectProperty .
 
-bacnetref:read-property a owl:DatatypeProperty .
-bacnetref:BACnetURI a owl:DatatypeProperty .
+ref:bacnet-read-property a owl:DatatypeProperty .
+ref:BACnetURI a owl:DatatypeProperty .
 
-bacnetref:BACnetReferenceShape a sh:NodeShape ;
+ref:BACnetReferenceShape a sh:NodeShape ;
     sh:targetObjectsOf ref:hasExternalReference ;
     sh:rule [
       a sh:TripleRule ;

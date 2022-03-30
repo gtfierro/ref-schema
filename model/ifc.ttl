@@ -7,19 +7,17 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix ifc: <https://brickschema.org/schema/Brick/ref/ifc#> .
 
-ifc: a owl:Ontology ;
-    owl:imports <https://brickschema.org/schema/Brick/ref/core#> ;
-.
+ifc: a owl:Ontology .
 
-ifc:hasProjectReference a owl:ObjectProperty .
+ref:hasIfcProjectReference a owl:ObjectProperty .
 
-ifc:globalID a owl:DatatypeProperty ;
+ref:ifcGlobalID a owl:DatatypeProperty ;
     rdfs:range xsd:string .
 
-ifc:name a owl:DatatypeProperty ;
+ref:ifcName a owl:DatatypeProperty ;
     rdfs:range xsd:string .
 
-ifc:IFCReferenceShape a sh:NodeShape ;
+ref:IFCReferenceShape a sh:NodeShape ;
     sh:targetObjectsOf ref:hasExternalReference ;
     sh:rule [
       a sh:TripleRule ;
