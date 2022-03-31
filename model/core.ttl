@@ -13,15 +13,10 @@ ref:ExternalReference
   a owl:Class ;
   a sh:NodeShape ;
   rdfs:label "External reference" ;
-  skos:definition "";
+  skos:definition "The parent class of all external reference types";
 .
 
 ref:hasExternalReference a owl:ObjectProperty ;
     rdfs:label "hasExternalReference" ;
-    skos:definition "" ;
-.
-
-core:ExternalReferenceShape a sh:NodeShape ;
-    sh:targetObjectsOf ref:hasExternalReference ;
-    sh:class ref:ExternalReference ;
+    skos:definition "Points to the external reference for this entity, which contains additional metadata/data not included in this graph." ;
 .

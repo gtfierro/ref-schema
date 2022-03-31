@@ -7,4 +7,4 @@ test:
 	poetry run pytest -s -vvvv
 
 docs: compile
-	poetry run pylode build/ref-schema.ttl -o doc.html
+	poetry run pylode build/ref-schema.ttl -o doc.html -c true

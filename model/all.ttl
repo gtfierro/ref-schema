@@ -24,6 +24,7 @@
 
 ref:BACnetReference a owl:Class,
         sh:NodeShape ;
+    skos:definition "A reference to the BACnet object represented by this entity." ;
     rdfs:subClassOf ref:ExternalReference ;
     sh:or ( [ sh:property [ a sh:PropertyShape ;
                         sh:datatype xsd:string ;
@@ -53,6 +54,7 @@ ref:BACnetReference a owl:Class,
 
 ref:IFCReference a owl:Class,
         sh:NodeShape ;
+    skos:definition "A reference to an entity in an IFC project which may contain additional metadata about this entity." ;
     rdfs:subClassOf ref:ExternalReference ;
     sh:property [ a sh:PropertyShape ;
             skos:definition "Name of the entity in IFC" ;
@@ -71,6 +73,7 @@ ref:IFCReference a owl:Class,
 
 ref:TimeseriesReference a owl:Class,
         sh:NodeShape ;
+    skos:definition "A reference to a stream of timeseries data in a database. Contains the data for this entity" ;
     rdfs:subClassOf ref:ExternalReference ;
     sh:property [ a sh:PropertyShape ;
             skos:definition "The identifier for the timeseries data corresponding to this point" ;

@@ -9,15 +9,23 @@
 
 ifc: a owl:Ontology .
 
-ref:hasIfcProjectReference a owl:ObjectProperty .
+ref:hasIfcProjectReference a owl:ObjectProperty ;
+    rdfs:label "hasIfcProjectReference" ;
+    skos:definition "A reference to the IFC Project that defines this entity" ;
+.
 
 ref:ifcGlobalID a owl:DatatypeProperty ;
+    rdfs:label "ifcGlobalID" ;
+    skos:definition "The IFC Global ID of the entity" ;
     rdfs:range xsd:string .
 
 ref:ifcName a owl:DatatypeProperty ;
+    rdfs:label "ifcName" ;
+    skos:definition "The name of the IFC entity" ;
     rdfs:range xsd:string .
 
 ref:IFCReferenceShape a sh:NodeShape ;
+    skos:definition "Infers a IFCReference instance from the object of an hasExternalReference." ;
     sh:targetObjectsOf ref:hasExternalReference ;
     sh:rule [
       a sh:TripleRule ;
