@@ -13,6 +13,7 @@ pyshacl = "^0.18"
 [tool.poetry.dev-dependencies]
 pytest = "^6.2"
 ontoenv = "^0.2"
+pyLODE = "^3.0.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

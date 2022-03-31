@@ -9,7 +9,7 @@
 @prefix bacnetref: <https://brickschema.org/schema/Brick/ref/bacnet#> .
 
 bacnetref: a owl:Ontology ;
-    owl:imports bacnet: ;
+    owl:imports <http://data.ashrae.org/bacnet/2020> ;
 .
 
 

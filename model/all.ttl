@@ -1,3 +1,5 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix sdo: <http://schema.org/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix ref: <https://brickschema.org/schema/Brick/ref#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
@@ -9,7 +11,11 @@
 @prefix ifc: <https://brickschema.org/schema/Brick/ref/ifc#> .
 @prefix tsdb: <https://brickschema.org/schema/Brick/ref/tsdb#> .
 
-ref: a owl:Ontology ;
+<https://brickschema.org/schema/Brick/ref> a owl:Ontology ;
+    dcterms:title "Ref Schema" ;
+    dcterms:creator ( [ a sdo:Person ;
+                sdo:email "gtfierro@mines.edu" ;
+                sdo:name "Gabe Fierro" ] ) ;
     owl:imports <https://brickschema.org/schema/Brick/ref/core#> ;
     owl:imports <https://brickschema.org/schema/Brick/ref/bacnet#> ;
     owl:imports <https://brickschema.org/schema/Brick/ref/ifc#> ;

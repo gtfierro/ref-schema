@@ -5,3 +5,6 @@ compile: model/*.ttl test
 
 test:
 	poetry run pytest -s -vvvv
+
+docs: compile
+	poetry run pylode build/ref-schema.ttl -o doc.html
