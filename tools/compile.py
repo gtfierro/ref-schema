@@ -6,6 +6,7 @@ graph = rdflib.Graph()
 graph.parse("model/all.ttl", format="ttl")
 env.import_dependencies(graph)
 # clean up ontology defs and their imports that aren't the core 'ref' schema
+graph.remove((None, rdflib.OWL.imports, None))
 graph.remove((None, rdflib.RDF.type, rdflib.OWL.Ontology))
 graph.add((REF, rdflib.RDF.type, rdflib.OWL.Ontology))
 for ont, imp in graph.subject_objects(rdflib.OWL.imports):

@@ -9,13 +9,14 @@
 @prefix bacnetref: <https://brickschema.org/schema/Brick/ref/bacnet#> .
 
 bacnetref: a owl:Ontology ;
-    owl:imports bacnet: ;
-    owl:imports <https://brickschema.org/schema/Brick/ref/core#> ;
+    owl:imports <http://data.ashrae.org/bacnet/2020> ;
 .
+
 
 ###### BACnetReference
 bacnet:description a bacnet:StandardProperty,
         owl:DatatypeProperty ;
+    skos:definition "The content of the description field of the BACnet object." ;
     bacnet:propertyEnum bacnet:PropertyIdentifier-description ;
     bacnet:propertyName "description" ;
     bacnet:propertyRef bacnet:Description .
@@ -23,6 +24,7 @@ bacnet:description a bacnet:StandardProperty,
 bacnet:object-identifier a bacnet:StandardProperty,
         rdf:Property,
         owl:DatatypeProperty ;
+    skos:definition "The BACnet object identifier" ;
     rdfs:label "object-identifier" ;
     bacnet:propertyEnum bacnet:PropertyIdentifier-object-identifier ;
     bacnet:propertyName "object-identifier" ;
@@ -32,6 +34,7 @@ bacnet:object-identifier a bacnet:StandardProperty,
 
 bacnet:object-name a bacnet:StandardProperty,
         owl:DatatypeProperty ;
+    skos:definition "The content of the name field of the BACnet object." ;
     bacnet:propertyEnum bacnet:PropertyIdentifier-object-name ;
     bacnet:propertyName "object-name" ;
     bacnet:propertyOf bacnet:Object ;
@@ -41,6 +44,7 @@ bacnet:object-name a bacnet:StandardProperty,
 bacnet:object-type a bacnet:StandardProperty,
         rdf:Property,
         owl:DatatypeProperty ;
+    skos:definition "The type of the BACnet object" ;
     rdfs:label "object-type" ;
     bacnet:propertyEnum bacnet:PropertyIdentifier-object-type ;
     bacnet:propertyName "object-type" ;
@@ -48,13 +52,24 @@ bacnet:object-type a bacnet:StandardProperty,
     bacnet:propertyRef bacnet:Object_Type ;
     rdfs:subPropertyOf bacnet:ReadableProperty .
 
-bacnet:objectOf a owl:ObjectProperty .
+bacnet:objectOf a owl:ObjectProperty ;
+    rdfs:label "objectOf" ;
+    rdfs:range bacnet:BACnetDevice ;
+    rdfs:comment "The 'parent' BACnet device that hosts this BACnet object." ;
+.
 
-bacnetref:read-property a owl:DatatypeProperty .
-bacnetref:BACnetURI a owl:DatatypeProperty .
+ref:bacnet-read-property a owl:DatatypeProperty ;
+    rdfs:label "bacnet-read-property" ;
+    rdfs:comment "The property of the BACnet object to read to get the current value of this entity." ;
+.
+ref:BACnetURI a owl:DatatypeProperty ;
+    rdfs:label "BACnetURI" ;
+    rdfs:comment "Clause Q.8 BACnet URI scheme: bacnet:// <device> / <object> [ / <property> [ / <index> ]]" ;
+.
 
-bacnetref:BACnetReferenceShape a sh:NodeShape ;
+ref:BACnetReferenceShape a sh:NodeShape ;
     sh:targetObjectsOf ref:hasExternalReference ;
+    skos:definition "Infers a BACnetReference instance from the object of an hasExternalReference." ;
     sh:rule [
       a sh:TripleRule ;
       sh:condition ref:BACnetReference ;
