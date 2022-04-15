@@ -17,13 +17,13 @@ ref:hasIfcProjectReference a owl:ObjectProperty ;
 ref:ifcProject a sh:NodeShape, owl:Class ;
     rdfs:label "IfcProject" ;
     sh:property [
-        sh:path ifc:ifcFileLocation ;
+        sh:path ref:ifcFileLocation ;
         sh:datatype xsd:string ;
         sh:maxCount 1 ;
         sh:minCount 1 ;
     ] ;
     sh:property [
-        sh:path ifc:ifcProjectID ;
+        sh:path ref:ifcProjectID ;
         sh:datatype xsd:string ;
         sh:maxCount 1 ;
         sh:minCount 1 ;
