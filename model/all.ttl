@@ -37,6 +37,11 @@ ref:BACnetReference a owl:Class,
                         sh:datatype xsd:string ;
                         sh:path bacnet:description ],
                     [ a sh:PropertyShape ;
+                        sh:class bacnet:EngineeringUnitsEnumerationValue ;
+                        sh:minCount 0 ;
+                        sh:maxCount 1 ;
+                        sh:path bacnet:units],
+                    [ a sh:PropertyShape ;
                         sh:datatype xsd:string ;
                         sh:minLength 1 ;
                         sh:path bacnet:object-name ],

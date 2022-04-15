@@ -14,9 +14,34 @@ ref:hasIfcProjectReference a owl:ObjectProperty ;
     skos:definition "A reference to the IFC Project that defines this entity" ;
 .
 
+ref:ifcProject a sh:NodeShape, owl:Class ;
+    rdfs:label "IfcProject" ;
+    sh:property [
+        sh:path ifc:ifcFileLocation ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path ifc:ifcProjectID ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:minCount 1 ;
+    ] ;
+.
+
+ref:ifcFileLocation a owl:DatatypeProperty ;
+    rdfs:range xsd:string ;
+    rdfs:label "The location of the IFC file defining a project" .
+
 ref:ifcGlobalID a owl:DatatypeProperty ;
     rdfs:label "ifcGlobalID" ;
     skos:definition "The IFC Global ID of the entity" ;
+    rdfs:range xsd:string .
+
+ref:ifcProjectID a owl:DatatypeProperty ;
+    rdfs:label "ifcProjectID" ;
+    skos:definition "The IFC ID of the containing project" ;
     rdfs:range xsd:string .
 
 ref:ifcName a owl:DatatypeProperty ;
