@@ -25,5 +25,6 @@
     bacnet:object-identifier "analog-value,5" ;
     bacnet:object-name "BLDG-Z410-ZATS" ;
     bacnet:objectOf :sample-device ;
+    ref:preferred true ;
   ] ;
 .
