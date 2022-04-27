@@ -13,11 +13,16 @@ ref:preferred a owl:DatatypeProperty ;
 .
 
 ref:PreferredShape a sh:NodeShape ;
-    sh:targetSubjectsOf ref:preferred ;
+    sh:targetSubjectsOf ref:hasExternalReference ;
     sh:property [
-        sh:path ref:preferred ;
+        sh:path ref:xyz ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path (ref:hasExternalReference ref:preferred) ;
         sh:datatype xsd:boolean ;
-        sh:minCount 0 ;
-        sh:maxCount 1 ;
+        sh:hasValue true ;
+        sh:message "An entity can only have one 'preferred' External Reference" ;
+        sh:maxCount 0 ;
     ] ;
 .

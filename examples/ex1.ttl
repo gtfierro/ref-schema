@@ -19,6 +19,7 @@
     a ref:TimeseriesReference ;
     ref:hasTimeseriesId "4665117e-ec75-47c2-a5ce-b71529cb159e" ;
     ref:storedAt "postgresql://dataserver/sensordatadb" ;
+    ref:preferred true ;
   ] ;
   ref:hasExternalReference [
     a ref:BACnetReference ;

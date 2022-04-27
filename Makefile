@@ -1,10 +1,10 @@
 .PHONY: test
 
-compile: model/*.ttl test
+compile: model/*.ttl
 	poetry run python tools/compile.py
 
-test:
+test: compile
 	poetry run pytest -s -vvvv
 
-docs: compile
+doc.html:
 	poetry run pylode build/ref-schema.ttl -o doc.html -c true
