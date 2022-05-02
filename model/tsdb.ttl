@@ -13,7 +13,7 @@ ref:hasTimeseriesReference a owl:ObjectProperty;
     sh:class ref:TimeseriesReference ;
     rdfs:subPropertyOf ref:hasExternalReference ;
     rdfs:label "hasTimeseriesReference" ;
-    skos:definition "Metadata for accessing related timeseries data: Relates a Brick point to the TimeseriesReference that indicates where and how the data for this point is stored"@en .
+    skos:definition "Metadata for accessing related timeseries data: Relates a data source (such as a Brick Point or 223 Property) to the TimeseriesReference that indicates where and how the data for this point is stored"@en .
 
 ref:storedAt a owl:DatatypeProperty ;
     rdfs:range xsd:anyURI ;
