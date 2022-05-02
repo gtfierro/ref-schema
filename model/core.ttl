@@ -20,3 +20,24 @@ ref:hasExternalReference a owl:ObjectProperty ;
     rdfs:label "hasExternalReference" ;
     skos:definition "Points to the external reference for this entity, which contains additional metadata/data not included in this graph." ;
 .
+
+ref:preferred a owl:DatatypeProperty ;
+    skos:definition "An entity can have one 'preferred' External Reference. Consumers of the model should prioritize any external reference with the 'preferred' property" ;
+.
+
+ref:PreferredShape a sh:NodeShape ;
+    sh:targetSubjectsOf ref:hasExternalReference ;
+    sh:property [
+        sh:path ref:hasExternalReference ;
+        sh:qualifiedValueShape [
+            sh:class ref:ExternalReference ;
+            sh:property [
+                sh:path ref:preferred ;
+                sh:datatype xsd:boolean ;
+                sh:hasValue true ;
+            ] ;
+        ] ;
+        sh:message "An entity can only have one 'preferred' External Reference" ;
+        sh:qualifiedMaxCount 1 ;
+    ] ;
+.
