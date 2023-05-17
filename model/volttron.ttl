@@ -1,0 +1,51 @@
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix ref: <https://brickschema.org/schema/Brick/ref#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix vltt: <https://brickschema.org/schema/Brick/ref/vltt#> .
+
+vltt: a owl:Ontology .
+
+# This is intended to work with BacnetReference and TimeseriesReference, which directly reference to the database or bacnet network
+# This reference takes advantage of the existing volttron platform service agents
+
+ref:hasVolttronReference a owl:ObjectProperty;
+    sh:class ref:VolttronReference ;
+    rdfs:subPropertyOf ref:hasExternalReference ;
+    rdfs:label "hasVolttronReference" ;
+    skos:definition "Metadata for reading/writing to a point configured using the default VOLTTRON Historian and Platform Driver configuration: Relates a data source (such as a Brick Point or 223 Property) to the VolttronReference that indicates how to access the point using built-in VOLTTRON Agents"@en .
+
+ref:hasTopicName a owl:DatatypeProperty ;
+    rdfs:label "hasTopicName" ;
+    skos:definition "A reference to the topic name used by the Platform Historian and Actuator to read/write to the point"@en ;
+    .
+
+ref:hasHistorianSyntax a owl:DatatypeProperty ;
+    rdfs:label "hasHistorianSyntax" ;
+    skos:definition "The historian syntax of the point. One of: record, datalogger, devices, analysis"@en ;
+    .
+
+ref:isWritable a owl:DatatypeProperty ;
+    rdfs:label "isWritable" ;
+    skos:definition "A boolean property defining whether or not the property can be written to"@en ;
+    .
+
+ref:hasConfigurationFilePath a owl:DatatypeProperty ;
+    rdfs:label "hasConfigurationFilePath" ;
+    skos:definition "An optional property providing a string with the configuration file for this point"@en ;
+    .
+
+ref:VolttronReferenceShape a sh:NodeShape ;
+    sh:targetObjectsOf ref:hasExternalReference ;
+    skos:definition "Infers a VolttronReference instance from the object of an hasExternalReference." ;
+    sh:rule [
+      a sh:TripleRule ;
+      sh:condition ref:VolttronReference ;
+      sh:subject sh:this ;
+      sh:predicate rdf:type ;
+      sh:object ref:VolttronReference ;
+    ] ;
+.
