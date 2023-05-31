@@ -14,6 +14,16 @@ ref:ExternalReference
   a sh:NodeShape ;
   rdfs:label "External reference" ;
   skos:definition "The parent class of all external reference types";
+  sh:property [
+    sh:path rdfs:label ;
+    sh:minCount 1 ;
+    sh:message "All ExternalReference must have an rdfs:label" ;
+  ] ;
+  sh:property [
+    sh:path skos:definition ;
+    sh:minCount 1 ;
+    sh:message "All ExternalReference must have an skos:definition" ;
+  ] ;
 .
 
 ref:hasExternalReference a owl:ObjectProperty ;

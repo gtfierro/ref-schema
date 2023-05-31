@@ -6,13 +6,13 @@ authors = ["Gabe Fierro <gtfierro@mines.edu>"]
 license = "bsd-3-clause"
 
 [tool.poetry.dependencies]
-python = "^3.7"
-rdflib = "^6.1"
-pyshacl = "^0.18"
+python = "^3.8"
+rdflib = "^6.2"
+pyshacl = "^0.22"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2"
-ontoenv = "^0.2"
+ontoenv = "^0.3"
 pyLODE = "^3.0.1"
 
 [build-system]
