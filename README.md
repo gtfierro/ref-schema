@@ -92,7 +92,7 @@ Here's a short description of how to add a new external reference to `ref schema
         sh:datatype xsd:nonNegativeInteger ;
        ] ;
     .
-  ```
+    ```
 6. Finally add an import to your graph in `model/all.ttl`:
 
     ```ttl
