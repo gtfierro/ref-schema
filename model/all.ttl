@@ -20,11 +20,23 @@
     owl:imports <https://brickschema.org/schema/Brick/ref/bacnet#> ;
     owl:imports <https://brickschema.org/schema/Brick/ref/ifc#> ;
     owl:imports <https://brickschema.org/schema/Brick/ref/tsdb#> ;
+    owl:imports <https://brickschema.org/schema/Brick/ref/modbus#> ;
+    sh:declare [ sh:namespace "http://www.w3.org/2000/01/rdf-schema#"^^xsd:anyURI ;
+            sh:prefix "rdfs" ],
+        [ sh:namespace "https://brickschema.org/schema/Brick/ref#"^^xsd:anyURI ;
+            sh:prefix "ref" ],
+        [ sh:namespace "http://www.w3.org/ns/shacl#"^^xsd:anyURI ;
+            sh:prefix "sh" ],
+        [ sh:namespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#"^^xsd:anyURI ;
+            sh:prefix "rdf" ],
+        [ sh:namespace "http://www.w3.org/2002/07/owl#"^^xsd:anyURI ;
+            sh:prefix "owl" ]
 .
 
 ref:BACnetReference a owl:Class,
         sh:NodeShape ;
     skos:definition "A reference to the BACnet object represented by this entity." ;
+    rdfs:label "BACnet Reference" ;
     rdfs:subClassOf ref:ExternalReference ;
     sh:or ( [ sh:property [ a sh:PropertyShape ;
                         sh:datatype bacnet:Property ;
@@ -60,6 +72,7 @@ ref:BACnetReference a owl:Class,
 ref:IFCReference a owl:Class,
         sh:NodeShape ;
     skos:definition "A reference to an entity in an IFC project which may contain additional metadata about this entity." ;
+    rdfs:label "Industry Foundation Classes Reference" ;
     rdfs:subClassOf ref:ExternalReference ;
     sh:property [ a sh:PropertyShape ;
             skos:definition "Name of the entity in IFC" ;
@@ -79,6 +92,7 @@ ref:IFCReference a owl:Class,
 ref:TimeseriesReference a owl:Class,
         sh:NodeShape ;
     skos:definition "A reference to a stream of timeseries data in a database. Contains the data for this entity" ;
+    rdfs:label "Timeseries Reference" ;
     rdfs:subClassOf ref:ExternalReference ;
     sh:property [ a sh:PropertyShape ;
             skos:definition "The identifier for the timeseries data corresponding to this point" ;
@@ -87,6 +101,6 @@ ref:TimeseriesReference a owl:Class,
             sh:path ref:hasTimeseriesId ],
         [ a sh:PropertyShape ;
             skos:definition "Refers to a database storing the timeseries data for the related point. Properties on this class are *to be determined*; feel free to add arbitrary properties onto Database instances for your particular deployment" ;
-            sh:datatype xsd:string ;
+            sh:nodeKind sh:IRIOrLiteral ;
             sh:path ref:storedAt ] .
 

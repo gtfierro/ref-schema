@@ -10,18 +10,16 @@
 tsdb: a owl:Ontology .
 
 ref:hasTimeseriesReference a owl:ObjectProperty;
-    sh:class ref:TimeseriesReference ;
+    rdfs:range ref:TimeseriesReference ;
     rdfs:subPropertyOf ref:hasExternalReference ;
     rdfs:label "hasTimeseriesReference" ;
     skos:definition "Metadata for accessing related timeseries data: Relates a data source (such as a Brick Point or 223 Property) to the TimeseriesReference that indicates where and how the data for this point is stored"@en .
 
 ref:storedAt a owl:DatatypeProperty ;
-    rdfs:range xsd:anyURI ;
     rdfs:label "storedAt" ;
     skos:definition "A reference to where the data for this TimeseriesReference is stored"@en .
 
 ref:hasTimeseriesId a owl:DatatypeProperty ;
-    rdfs:range xsd:string ;
     rdfs:label "hasTimeseriesId" ;
     skos:definition "The unique identifier (primary key) for this TimeseriesReference in some database"@en .
 

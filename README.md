@@ -31,7 +31,7 @@ Here's a short description of how to add a new external reference to `ref schema
 
    These properties should be in the `ref:` namespace, but the property names should start with
    some indication of the protocol (e.g. `modbus*`). You should have an `skos:definitions` and `rdfs:label`
-   on each of these. You can use SHACL Property Shapes to further refine these definitions as well; (see step 5)
+   on each of these. You can use SHACL Property Shapes to further refine these definitions as well; (see step 6)
 
     ```ttl
     # continuation of above .ttl file
@@ -45,7 +45,7 @@ Here's a short description of how to add a new external reference to `ref schema
         rdfs:label "Modbus address offset" ;
         skos:definition "Offset into the modbus address space where the referenced item exists" .
     ```
-4. Define a `<EXTERNAL REFERENCE>ReferenceShape` Node Shape in this new file which performs reflection on the reference
+1. Define a `<EXTERNAL REFERENCE>ReferenceShape` Node Shape in this new file which performs reflection on the reference
    in order to add the correct type annotation. This will refer to the `ref:<EXTERNAL REFERENCE>Reference` shape
    that we will define below. Here is an example of what this would look like for our Modbus shape:
 
@@ -62,7 +62,17 @@ Here's a short description of how to add a new external reference to `ref schema
         ] ;
     .
     ```
-5. In `model/all.ttl`, add your new `Reference` shape. This should be both an `owl:Class` and `sh:NodeShape` and a subclass of `ref:ExternalReference`.
+2. Define a `has<EXTERNAL REF>Reference` `owl:ObjectProperty` to the new file; this should point to the `Reference` shape defined below
+   and be a subproperty (`rdfs:subPropertyOf`) of `ref:hasExternalReference`:
+
+    ```ttl
+    ref:hasModbusReference a owl:ObjectProperty ;
+      rdfs:range ref:ModbusReference ;
+      rdfs:subPropertyOf ref:hasExternalReference ;
+      rdfs:label "has modbus reference" ;
+      skos:definition "Metadata for accessing a modbus item" .
+    ```
+3. In `model/all.ttl`, add your new `Reference` shape. This should be both an `owl:Class` and `sh:NodeShape` and a subclass of `ref:ExternalReference`.
    Use all of the propery shapes you defined above; you can decide if they are optional or necessary. The `Reference` shape should exist in the `ref:` namespace.
    You should include a `skos:definition` and `rdfs:label`.
    For our Modbus example:
@@ -83,7 +93,7 @@ Here's a short description of how to add a new external reference to `ref schema
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:datatype xsd:string ;
-        sh:in ("coil", "contact", "register") .
+        sh:in ("coil" "contact" "register")
        ] ;
        sh:property [
         sh:path ref:modbusAddressOffset ;
@@ -93,7 +103,7 @@ Here's a short description of how to add a new external reference to `ref schema
        ] ;
     .
     ```
-6. Finally add an import to your graph in `model/all.ttl`:
+4. Finally add an import to your graph in `model/all.ttl`:
 
     ```ttl
     <https://brickschema.org/schema/Brick/ref> a owl:Ontology ;

@@ -13,7 +13,19 @@ ref:ExternalReference
   a owl:Class ;
   a sh:NodeShape ;
   rdfs:label "External reference" ;
-  skos:definition "The parent class of all external reference types";
+  skos:definition "The parent class of all external reference types"
+.
+
+ref:ExternalReferenceShape a sh:NodeShape ;
+  sh:target [
+    a sh:SPARQLTarget ;
+    sh:prefixes ref: ;
+    sh:select """
+    SELECT ?this WHERE {
+     ?this rdfs:subClassOf+ ref:ExternalReference .
+    }
+    """ ;
+  ] ;
   sh:property [
     sh:path rdfs:label ;
     sh:minCount 1 ;
