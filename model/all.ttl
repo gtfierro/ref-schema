@@ -20,6 +20,7 @@
     owl:imports <https://brickschema.org/schema/Brick/ref/bacnet#> ;
     owl:imports <https://brickschema.org/schema/Brick/ref/ifc#> ;
     owl:imports <https://brickschema.org/schema/Brick/ref/tsdb#> ;
+    owl:imports <https://brickschema.org/schema/Brick/ref/volttron#> ;
 .
 
 ref:BACnetReference a owl:Class,
@@ -99,25 +100,25 @@ ref:VolttronReference a owl:Class,
             skos:definition "The topic name used by the platform agents for read and write processes" ;
             sh:datatype xsd:string ;
             sh:minCount 1 ;
-            sh:path ref:hasTopicName 
+            sh:path ref:volttronTopicName 
         ];
     sh:property [ a sh:PropertyShape ;
             skos:definition "Defines if the point is writable." ;
             sh:datatype xsd:string ;
             sh:minCount 1 ;
             sh:maxCount 1 ;
-            sh:path ref:isWritable ;
-            sh:in (true false) 
+            sh:path ref:volttronIsWritable ;
+            sh:in (true false) ;
         ];
     sh:property [
             skos:definition "The historian syntax must be one of the following strings: 'record', 'datalogger', 'devices', 'analysis' " ;
             sh:datatype xsd:string ;
-            # Would it be better to have instances rather than strings for each of these?
+            sh:path ref:volttronHistorianSyntax ;
             sh:in ("record" "datalogger" "devices" "analysis") ;
             sh:maxCount 1 ;
         ] ;
     sh:property [
-            sh:path ref:hasConfigurationFilePath ;
+            sh:path ref:volttronConfigurationFilePath ;
             sh:message "the configuration file path must be a string " ;
             sh:datatype xsd:string ;
     ] ; 
