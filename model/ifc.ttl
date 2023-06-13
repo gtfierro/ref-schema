@@ -36,18 +36,15 @@ ref:ifcFileLocation a owl:DatatypeProperty ;
 
 ref:ifcGlobalID a owl:DatatypeProperty ;
     rdfs:label "ifcGlobalID" ;
-    skos:definition "The IFC Global ID of the entity" ;
-    rdfs:range xsd:string .
+    skos:definition "The IFC Global ID of the entity" .
 
 ref:ifcProjectID a owl:DatatypeProperty ;
     rdfs:label "ifcProjectID" ;
-    skos:definition "The IFC ID of the containing project" ;
-    rdfs:range xsd:string .
+    skos:definition "The IFC ID of the containing project" .
 
 ref:ifcName a owl:DatatypeProperty ;
     rdfs:label "ifcName" ;
-    skos:definition "The name of the IFC entity" ;
-    rdfs:range xsd:string .
+    skos:definition "The name of the IFC entity" .
 
 ref:IFCReferenceShape a sh:NodeShape ;
     skos:definition "Infers a IFCReference instance from the object of an hasExternalReference." ;
