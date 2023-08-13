@@ -1,4 +1,5 @@
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix s223: <http://data.ashrae.org/standard223#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -7,11 +8,13 @@
 @prefix ref: <https://brickschema.org/schema/Brick/ref#> .
 @prefix core: <https://brickschema.org/schema/Brick/ref/core#> .
 
-core: a owl:Ontology .
+core: a owl:Ontology ;
+    owl:imports s223: .
 
 ref:ExternalReference
   a owl:Class ;
   a sh:NodeShape ;
+  rdfs:subClassOf s223:ExternalReference ;
   rdfs:label "External reference" ;
   skos:definition "The parent class of all external reference types"
 .
@@ -40,6 +43,7 @@ ref:ExternalReferenceShape a sh:NodeShape ;
 
 ref:hasExternalReference a owl:ObjectProperty ;
     rdfs:label "hasExternalReference" ;
+    rdfs:subPropertyOf s223:hasExternalReference ;
     skos:definition "Points to the external reference for this entity, which contains additional metadata/data not included in this graph." ;
 .
 
