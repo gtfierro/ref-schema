@@ -4,43 +4,56 @@ on:
   workflow_dispatch:
   push:
     branches:
-        - main
+      - main
   pull_request:
     branches:
-        - main
+      - main
+
 jobs:
   build:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
         python-version: ['3.9', '3.10', '3.11']
+
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v3
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Run image
-      uses: abatilo/actions-poetry@v2.3.0
-    - name: Install deps
-      run: poetry install --no-root
-    - name: Handle ontology dependencis
-      run: poetry run ontoenv init
-    - name: Compile
-      run: |
-        mkdir build
-        poetry run python tools/compile.py
-    - name: Test
-      run: |
-        poetry run pytest -s -vvvv
-    - name: Get current date
-      id: date
-      run: echo "::set-output name=date::$(date +'%Y-%m-%dT%H:%M:%S')"
-    - uses: marvinpinto/action-automatic-releases@latest
-      with:
-        repo_token: ${{ secrets.GITHUB_TOKEN }}
-        prerelease: true
-        automatic_release_tag: nightly-${{ steps.date.outputs.date }}
-        title: Nightly Build ${{ steps.date.outputs.date }}
-        files: |
-          build/ref-schema.ttl
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Run image
+        uses: abatilo/actions-poetry@v2.3.0
+
+      - name: Install dependencies
+        run: poetry install --no-root
+
+      - name: Handle ontology dependencies
+        run: poetry run ontoenv init
+
+      - name: Compile
+        run: |
+          mkdir build
+          poetry run python tools/compile.py
+
+      - name: Test
+        run: |
+          poetry run pytest -s -vvvv
+
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y-%m-%dT%H:%M:%S')"
+
+      - name: Create automatic release
+        if: matrix.python-version == '3.11'
+        uses: marvinpinto/action-automatic-releases@latest
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          automatic_release_tag: nightly
+          title: Nightly Build ${{ steps.date.outputs.date }}
+          files: |
+            build/ref-schema.ttl
+
