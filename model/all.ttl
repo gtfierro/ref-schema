@@ -20,7 +20,7 @@
     owl:imports <https://brickschema.org/schema/Brick/ref/bacnet#> ;
     owl:imports <https://brickschema.org/schema/Brick/ref/ifc#> ;
     owl:imports <https://brickschema.org/schema/Brick/ref/tsdb#> ;
-    owl:imports <https://brickschema.org/schema/Brick/ref/modbus#> ;
+    owl:imports <https://brickschema.org/schema/Brick/ref/metasys#> ;
     sh:declare [ sh:namespace "http://www.w3.org/2000/01/rdf-schema#"^^xsd:anyURI ;
             sh:prefix "rdfs" ],
         [ sh:namespace "https://brickschema.org/schema/Brick/ref#"^^xsd:anyURI ;
@@ -104,3 +104,25 @@ ref:TimeseriesReference a owl:Class,
             sh:nodeKind sh:IRIOrLiteral ;
             sh:path ref:storedAt ] .
 
+ref:MetasysReference a owl:Class, sh:NodeShape ;
+    rdfs:subClassOf ref:ExternalReference ;
+    rdfs:label "Metasys Reference" ;
+    skos:definition "Refers to a Metasys item" ;
+    sh:property [
+     sh:path ref:metasysID ;
+     sh:minCount 1 ;
+     sh:maxCount 1 ;
+     sh:datatype xsd:string ;
+    ] ;
+    sh:property [
+     sh:path ref:metasysItemReference ;
+     sh:maxCount 1 ;
+     sh:datatype xsd:string ;
+    ] ;
+    sh:property [
+     sh:path ref:hostedAt ;
+     sh:minCount 1 ;
+     sh:maxCount 1 ;
+     sh:datatype xsd:string ;
+    ] ;
+.
