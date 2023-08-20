@@ -1,0 +1,39 @@
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix ref: <https://brickschema.org/schema/Brick/ref#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix metasys: <https://brickschema.org/schema/Brick/ref/metasys#> .
+
+metasys: a owl:Ontology .1
+
+ref:metasysID a owl:DatatypeProperty
+    rdfs:label "Metasys ID" ;
+    skos:definition "The uuid of an item in Metasys." .
+ref:metasysItemReference a owl:DatatypeProperty ;
+    rdfs:label "Metasys Item Reference" ;
+    skos:definition "Item Reference of an item in Metasys." .
+ref:hostedAt a owl:DatatypeProperty ;
+    rdfs:label "The Metasys ADX server this item is hosted at." ;
+    skos:definition "A reference (e.g. ip address) to the ADX server hosting this MetasysReference." .
+
+ref:MetasysReferenceShape a sh:NodeShape ;
+    skos:definition "Infers a MetasysReference instance from the object of an hasExternalReference." ;
+    sh:targetObjectsOf ref:hasExternalReference ;
+    sh:rule [
+      a sh:TripleRule ;
+      sh:condition ref:MetasysReference ;
+      sh:subject sh:this ;
+      sh:predicate rdf:type ;
+      sh:object ref:MetasysReference ;
+    ] ;
+.
+
+ref:hasMetasysReference a owl:ObjectProperty ;
+  rdfs:range ref:MetasysReference ;
+  rdfs:subPropertyOf ref:hasExternalReference ;
+  rdfs:label "has Metasys reference" ;
+  skos:definition "Metadata for accessing a Metasys item" .
+  
