@@ -22,7 +22,7 @@ ref:ExternalReference
 ref:ExternalReferenceShape a sh:NodeShape ;
   sh:target [
     a sh:SPARQLTarget ;
-    sh:prefixes ref: ;
+    sh:prefixes <https://brickschema.org/schema/Brick/ref> ;
     sh:select """
     SELECT ?this WHERE {
      ?this rdfs:subClassOf+ ref:ExternalReference .
