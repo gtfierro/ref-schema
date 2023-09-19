@@ -1,0 +1,38 @@
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix ref: <https://brickschema.org/schema/Brick/ref#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix modbus: <https://brickschema.org/schema/Brick/ref/modbus#> .
+
+modbus: a owl:Ontology .
+
+ref:modbusIPAddress a owl:DatatypeProperty
+    rdfs:label "Modbus IP address" ;
+    skos:definition "IP address of Modbus TCP/IP server where the item exists" .
+ref:modbusDataType a owl:DatatypeProperty ;
+    rdfs:label "Modbus data type" ;
+    skos:definition "Data type of the modbus item being referenced" .
+ref:modbusAddressOffset a owl:DatatypeProperty ;
+    rdfs:label "Modbus address offset" ;
+    skos:definition "Offset into the modbus address space where the referenced item exists" .
+
+ref:ModbusReferenceShape a sh:NodeShape ;
+    skos:definition "Infers a ModbusReference instance from the object of an hasExternalReference." ;
+    sh:targetObjectsOf ref:hasExternalReference ;
+    sh:rule [
+      a sh:TripleRule ;
+      sh:condition ref:ModbusReference ;
+      sh:subject sh:this ;
+      sh:predicate rdf:type ;
+      sh:object ref:ModbusReference ;
+    ] ;
+.
+
+ref:hasModbusReference a owl:ObjectProperty ;
+  rdfs:range ref:ModbusReference ;
+  rdfs:subPropertyOf ref:hasExternalReference ;
+  rdfs:label "has modbus reference" ;
+  skos:definition "Metadata for accessing a modbus item" .
