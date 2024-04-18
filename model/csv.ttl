@@ -1,0 +1,51 @@
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix ref: <https://brickschema.org/schema/Brick/ref#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix csv: <https://brickschema.org/schema/Brick/ref/csv#> .
+
+csv: a owl:Ontology .
+
+ref:hasCsvReference a owl:ObjectProperty ;
+    rdfs:label "hasCsvReference" ;
+    skos:definition "A reference to the CSV file that defines this entity" ;
+.
+
+ref:csvReference a sh:NodeShape, owl:Class ;
+    rdfs:label "csvReference" ;
+    sh:property [
+        sh:path ref:csvFileLocation ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+    sh:path ref:csvColumnID ;
+    sh:datatype xsd:string ;
+    sh:maxCount 1 ;
+    sh:minCount 1 ;
+    ] ;
+.
+
+ref:csvFileLocation a owl:DatatypeProperty ;
+    rdfs:range xsd:string ;
+    rdfs:label "The Location of the CSV file" .
+
+ref:csvColumnID a owl:DatatypeProperty ;
+    rdfs:range xsd:string ;
+    rdfs:label "The column name of the CSV reference as defined in the file" .
+
+ref:csvReferenceShape a sh:NodeShape ;
+    skos:definition "Infers a csvReference instance from the object of an hasExternalReference." ;
+    sh:targetObjectsOf ref:hasExternalReference ;
+    sh:rule [
+      a sh:TripleRule ;
+      sh:condition ref:csvReference ;
+      sh:subject sh:this ;
+      sh:predicate rdf:type ;
+      sh:object ref:csvReference ;
+    ] ;
+.
