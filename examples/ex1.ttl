@@ -27,4 +27,9 @@
     bacnet:objectOf :sample-device ;
     ref:preferred true ;
   ] ;
+  ref:hasExternalReference [
+    a ref:MetasysReference ;
+    ref:metasysID "54f03333-afcb-5210-be0b-9b6996e2e76e";
+    ref:hostedAt "172.21.59.228"
+  ];
 .
