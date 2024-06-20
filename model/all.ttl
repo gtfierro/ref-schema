@@ -104,3 +104,27 @@ ref:TimeseriesReference a owl:Class,
             sh:nodeKind sh:IRIOrLiteral ;
             sh:path ref:storedAt ] .
 
+ref:ModbusReference a owl:Class, sh:NodeShape ;
+   rdfs:subClassOf ref:ExternalReference ;
+   rdfs:label "Modbus Reference" ;
+   skos:definition "Refers to a modbus item over TCP/IP" ;
+   sh:property [
+    sh:path ref:modbusIPAddress ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:string ;
+   ] ;
+   sh:property [
+    sh:path ref:modbusDataType ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:string ;
+    sh:in ("coil" "contact" "register") ;
+   ] ;
+   sh:property [
+    sh:path ref:modbusAddressOffset ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:nonNegativeInteger ;
+   ] ;
+.
