@@ -11,7 +11,7 @@ db: a owl:Ontology ;
     rdfs:label "Database Ontology" ;
     rdfs:comment "An ontology to define generic database references for reuse in other ontologies." .
 
-db:DatabaseReference a owl:Class ;
+ref:databaseReference a owl:Class ;
     rdfs:label "Database Reference" ;
     rdfs:comment "A generic reference to a database, which can be extended by specific database types." ;
     sh:property [
