@@ -8,9 +8,11 @@ readme = "README.md"
 packages = [{include = "ref_schema"}]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.10"
 rdflib = "^6.3.2"
 pyshacl = "^0.23.0"
+pandas = "^2.2.2"
+pyontoenv = "^0.1.6"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.3.1"
