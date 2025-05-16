@@ -6,6 +6,8 @@
 @prefix time: <http://www.w3.org/2006/time#> .
 @prefix influxdb: <https://brickschema.org/schema/Brick/ref/influxdb#> .
 @prefix ref: <https://brickschema.org/schema/Brick/ref#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
 
 influxdb: a owl:Ontology .
 
@@ -17,12 +19,8 @@ ref:hasInfluxDBReference a owl:ObjectProperty ;
 
 ref:influxdbUrl a owl:DatatypeProperty ;
     rdfs:label "URL" ;
-    rdfs:comment "The URL of the InfluxDB database." ;
+    rdfs:comment "The URL of the InfluxDB database, including TCP port (default=8086)." ;
     rdfs:range xsd:anyURI .
-
-ref:influxdbTCPPort a owl:DatatypeProperty ;
-    rdfs:label "TCP Port" ;
-    rdfs:comment "The port on which the InfluxDB server is listening." ;
 
 ref:influxdbBucket a owl:DatatypeProperty ;
     rdfs:label "Bucket" ;
@@ -67,7 +65,6 @@ ref:influxdbTokenLocation a rdf:Property ;
     skos:definition "The location where the authentication token can be found (e.g., environment variable, file path).Using env: or $ will point to an environment variable. Never store token in plaintext." ;
     rdfs:comment "The location where the authentication token can be found (e.g., environment variable, file path).Using env: or $ will point to an environment variable. Never store token in plaintext." ;
     rdfs:range xsd:string .
-
 
 influxdb:fieldKey a rdf:Property;
   rdfs:label "Fiel Key";

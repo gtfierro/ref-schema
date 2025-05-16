@@ -117,12 +117,6 @@ ref:InfluxdbServer a owl:Class, sh:NodeShape ;
         sh:datatype xsd:anyURI ;
     ] ;
     sh:property [
-        sh:path ref:influxdbTCPPort ;
-        sh:minCount 1 ;
-        sh:maxCount 1 ;
-        sh:datatype xsd:string ;
-    ] .
-    sh:property [
         sh:path ref:influxdbAuthenticationMethod ;
         sh:minCount 1 ;
         sh:datatype xsd:string ;
