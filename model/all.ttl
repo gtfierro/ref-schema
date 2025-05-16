@@ -10,6 +10,7 @@
 @prefix bacnet: <http://data.ashrae.org/bacnet/2020#> .
 @prefix ifc: <https://brickschema.org/schema/Brick/ref/ifc#> .
 @prefix tsdb: <https://brickschema.org/schema/Brick/ref/tsdb#> .
+@prefix influxdb: <https://brickschema.org/schema/Brick/ref/influxdb#> .
 
 <https://brickschema.org/schema/Brick/ref> a owl:Ontology ;
     dcterms:title "Ref Schema" ;
@@ -104,3 +105,69 @@ ref:TimeseriesReference a owl:Class,
             sh:nodeKind sh:IRIOrLiteral ;
             sh:path ref:storedAt ] .
 
+ref:InfluxdbServer a owl:Class, sh:NodeShape ;
+    #rdfs:subClassOf ref:ExternalReference ;
+    rdfs:label "InfluxDB Database Server Reference" ;
+    rdfs:comment "A reference to an InfluxDB database server." ;
+    skos:definition "Refers to an InfluxDB database server" ;
+    sh:property [
+        sh:path ref:influxdbUrl ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:anyURI ;
+    ] ;
+    sh:property [
+        sh:path ref:influxdbAuthenticationMethod ;
+        sh:minCount 1 ;
+        sh:datatype xsd:string ;
+    ].
+    sh:property [
+        sh:path ref:influxdbTokenLocation ;
+        sh:minCount 1 ;
+        sh:datatype xsd:string ;
+    ]. 
+
+ref:InfluxdbReference a owl:Class, sh:NodeShape ;
+    rdfs:subClassOf ref:TimeseriesReference ;
+    rdfs:label "InfluxDB Record Reference" ;
+    skos:definition "Refers to an InfluxDB table (measurement) item" ;
+    sh:property [
+        sh:path ref:InfluxdbServer ;
+        sh:minCount 1 ;
+    ].
+    sh:or (
+        [   # Version 2 requirements
+            sh:property [
+                sh:path ref:influxdbMeasurement ;
+                sh:minCount 1 ;
+                sh:maxCount 1 ;
+                sh:datatype xsd:string ;
+            ] ;
+            sh:property [
+                sh:path ref:influxdbBucket ;
+                sh:minCount 1 ;
+                sh:maxCount 1 ;
+                sh:datatype xsd:string ;
+            ] ;
+        ]
+        [   # Version 3 requirements
+            sh:property [
+                sh:path ref:influxdbDatabase ;
+                sh:minCount 1 ;
+                sh:maxCount 1 ;
+                sh:datatype xsd:string ;
+            ] ;
+            sh:property [
+                sh:path ref:influxdbTable ;
+                sh:minCount 1 ;
+                sh:maxCount 1 ;
+                sh:datatype xsd:string ;
+            ] ;
+        ]
+    ) ;
+    sh:property [
+        sh:path ref:influxdbTag ;
+        sh:minCount 1 ;
+        sh:datatype xsd:string ;
+    ] ;
+    .

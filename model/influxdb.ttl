@@ -1,0 +1,77 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ashrae: <http://ashrae.org/223P/> .
+@prefix schema: <https://schema.org/> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix influxdb: <https://brickschema.org/schema/Brick/ref/influxdb#> .
+@prefix ref: <https://brickschema.org/schema/Brick/ref#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+
+influxdb: a owl:Ontology .
+
+ref:hasInfluxDBReference a owl:ObjectProperty ;
+    rdfs:label "hasInfluxDBReference" ;
+    rdfs:comment "A reference to the InfluxDB database that defines this entity" ;
+    rdfs:domain ref:ExternalReference ;
+    rdfs:range ref:InfluxdbReference .
+
+ref:influxdbUrl a owl:DatatypeProperty ;
+    rdfs:label "URL" ;
+    rdfs:comment "The URL of the InfluxDB database, including TCP port (default=8086)." ;
+    rdfs:range xsd:anyURI .
+
+ref:influxdbBucket a owl:DatatypeProperty ;
+    rdfs:label "Bucket" ;
+    rdfs:comment "The bucket name within the InfluxDB database. Using env: or $ will point to an environment variable." ;
+    rdfs:range xsd:string .
+
+ref:influxdbDatabase a owl:DatatypeProperty ;
+    rdfs:label "Database" ;
+    skos:definition "The database name within the InfluxDB database. Using env: or $ will point to an environment variable." ;
+    rdfs:comment "Compared to previous versions of InfluxDB you can think of a database as a bucket in v2 or as a db/retention_policy in v1" ;
+    rdfs:range xsd:string .
+ref:influxdbTable a owl:DatatypeProperty ;
+    rdfs:label "Table" ;
+    skos:definition "The table name within the InfluxDB database. Using env: or $ will point to an environment variable." ;
+    rdfs:comment "A table is equivalent to a measurement, which has columns that can be of type tag (a string dictionary), int64, float64, uint64, bool, or string and finally every table has a time column that is a nanosecond precision timestamp." ;
+    rdfs:range [ a owl:Class ;
+                owl:unionOf (xsd:float xsd:string xsd:integer xsd:boolean)
+            ] .
+
+ref:influxdbMeasurement a owl:DatatypeProperty ;
+    rdfs:label "Measurement" ;
+    skos:definition "The measurement name within the InfluxDB database. Using env: or $ will point to an environment variable." ;
+    rdfs:comment "The measurement name within the InfluxDB database. Using env: or $ will point to an environment variable." ;
+    rdfs:range [ a owl:Class ;
+                owl:unionOf (xsd:float xsd:string xsd:integer xsd:boolean)
+            ] .
+
+ref:influxdbOrg a owl:DatatypeProperty ;
+    rdfs:label "Org" ;
+    skos:definition "An organization is a workspace for a group of users. All dashboards, tasks, buckets, members, etc., belong to an organization." .
+    rdfs:comment "An organization is a workspace for a group of users. All dashboards, tasks, buckets, members, etc., belong to an organization." ;
+    rdfs:range xsd:string .
+
+ref:influxdbAuthenticationMethod a rdf:Property ;
+    rdfs:label "Authentication Method" ;
+    skos:definition "The authentication method used to connect to the database.Using env: or $ will point to an environment variable." ;
+    rdfs:comment "The authentication method used to connect to the database.Using env: or $ will point to an environment variable." ;
+    rdfs:range xsd:string .
+
+ref:influxdbTokenLocation a rdf:Property ;
+    rdfs:label "Token Location" ;
+    skos:definition "The location where the authentication token can be found (e.g., environment variable, file path).Using env: or $ will point to an environment variable. Never store token in plaintext." ;
+    rdfs:comment "The location where the authentication token can be found (e.g., environment variable, file path).Using env: or $ will point to an environment variable. Never store token in plaintext." ;
+    rdfs:range xsd:string .
+
+influxdb:fieldKey a rdf:Property;
+  rdfs:label "Fiel Key";
+  rdfs:comment "he key part of the key-value pair that makes up a field. Field keys are strings and they store metadata.";
+  rdfs:range xsd:string.
+
+influxdb:tagKey a rdf:Property;
+  rdfs:label "Tag Key";
+  rdfs:comment "The key part of the key-value pair that makes up a tag. Tag keys are strings and they store metadata. Tag keys are indexed so queries on tag keys are performant. In the context of an external reference, tag key can be used to query the data point.";
+  rdfs:range xsd:string.
