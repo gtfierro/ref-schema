@@ -1,7 +1,8 @@
 import ontoenv
 import rdflib
 REF = rdflib.URIRef("https://brickschema.org/schema/Brick/ref")
-env = ontoenv.OntoEnv()
+cfg = ontoenv.Config(["model/"])
+env = ontoenv.OntoEnv(cfg)
 graph = rdflib.Graph()
 graph.parse("model/all.ttl", format="ttl")
 env.import_dependencies(graph)

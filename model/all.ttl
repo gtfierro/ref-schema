@@ -120,7 +120,7 @@ ref:InfluxdbServer a owl:Class, sh:NodeShape ;
         sh:path ref:influxdbAuthenticationMethod ;
         sh:minCount 1 ;
         sh:datatype xsd:string ;
-    ].
+    ] ;
     sh:property [
         sh:path ref:influxdbTokenLocation ;
         sh:minCount 1 ;
@@ -134,7 +134,7 @@ ref:InfluxdbReference a owl:Class, sh:NodeShape ;
     sh:property [
         sh:path ref:InfluxdbServer ;
         sh:minCount 1 ;
-    ].
+    ] ;
     sh:or (
         [   # Version 2 requirements
             sh:property [
