@@ -8,6 +8,7 @@
 @prefix ref: <https://brickschema.org/schema/Brick/ref#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
 
 influxdb: a owl:Ontology .
 
@@ -16,6 +17,79 @@ ref:hasInfluxDBReference a owl:ObjectProperty ;
     rdfs:comment "A reference to the InfluxDB database that defines this entity" ;
     rdfs:domain ref:ExternalReference ;
     rdfs:range ref:InfluxdbReference .
+
+ref:InfluxdbReference a owl:Class, sh:NodeShape ;
+    rdfs:label "InfluxDB Reference" ;
+    rdfs:comment "Represents a reference to an InfluxDB data source and its connection parameters." ;
+    sh:property
+        [
+            sh:path ref:influxdbUrl ;
+            sh:name "URL" ;
+            sh:description "The URL of the InfluxDB database, including TCP port (default=8086)." ;
+            sh:datatype xsd:anyURI ;
+            sh:minCount 1 ;
+            sh:maxCount 1
+        ],
+        [
+            sh:path ref:influxdbBucket ;
+            sh:name "Bucket" ;
+            sh:description "The bucket name within the InfluxDB database. Using env: or $ will point to an environment variable." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1
+        ],
+        [
+            sh:path ref:influxdbDatabase ;
+            sh:name "Database" ;
+            sh:description "The database name within the InfluxDB database. Using env: or $ will point to an environment variable." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1
+        ],
+        [
+            sh:path ref:influxdbTable ;
+            sh:name "Table" ;
+            sh:description "The table name within the InfluxDB database. Using env: or $ will point to an environment variable." ;
+            sh:maxCount 1 ;
+            sh:or (
+                [ sh:datatype xsd:float ]
+                [ sh:datatype xsd:string ]
+                [ sh:datatype xsd:integer ]
+                [ sh:datatype xsd:boolean ]
+            )
+        ],
+        [
+            sh:path ref:influxdbMeasurement ;
+            sh:name "Measurement" ;
+            sh:description "The measurement name within the InfluxDB database. Using env: or $ will point to an environment variable." ;
+            sh:maxCount 1 ;
+            sh:or (
+                [ sh:datatype xsd:float ]
+                [ sh:datatype xsd:string ]
+                [ sh:datatype xsd:integer ]
+                [ sh:datatype xsd:boolean ]
+            )
+        ],
+        [
+            sh:path ref:influxdbOrg ;
+            sh:name "Org" ;
+            sh:description "An organization is a workspace for a group of users. All dashboards, tasks, buckets, members, etc., belong to an organization." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1
+        ],
+        [
+            sh:path ref:influxdbAuthenticationMethod ;
+            sh:name "Authentication Method" ;
+            sh:description "The authentication method used to connect to the database.Using env: or $ will point to an environment variable." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1
+        ],
+        [
+            sh:path ref:influxdbTokenLocation ;
+            sh:name "Token Location" ;
+            sh:description "The location where the authentication token can be found (e.g., environment variable, file path).Using env: or $ will point to an environment variable. Never store token in plaintext." ;
+            sh:datatype xsd:string ;
+            sh:maxCount 1
+        ]
+.
 
 ref:influxdbUrl a owl:DatatypeProperty ;
     rdfs:label "URL" ;
@@ -35,18 +109,14 @@ ref:influxdbDatabase a owl:DatatypeProperty ;
 ref:influxdbTable a owl:DatatypeProperty ;
     rdfs:label "Table" ;
     skos:definition "The table name within the InfluxDB database. Using env: or $ will point to an environment variable." ;
-    rdfs:comment "A table is equivalent to a measurement, which has columns that can be of type tag (a string dictionary), int64, float64, uint64, bool, or string and finally every table has a time column that is a nanosecond precision timestamp." ;
-    rdfs:range [ a owl:Class ;
-                owl:unionOf (xsd:float xsd:string xsd:integer xsd:boolean)
-            ] .
+    rdfs:comment "A table is equivalent to a measurement, which has columns that can be of type tag (a string dictionary), int64, float64, uint64, bool, or string and finally every table has a time column that is a nanosecond precision timestamp." .
+    # rdfs:range constraint is now handled by sh:NodeShape for ref:InfluxdbReference
 
 ref:influxdbMeasurement a owl:DatatypeProperty ;
     rdfs:label "Measurement" ;
     skos:definition "The measurement name within the InfluxDB database. Using env: or $ will point to an environment variable." ;
-    rdfs:comment "The measurement name within the InfluxDB database. Using env: or $ will point to an environment variable." ;
-    rdfs:range [ a owl:Class ;
-                owl:unionOf (xsd:float xsd:string xsd:integer xsd:boolean)
-            ] .
+    rdfs:comment "The measurement name within the InfluxDB database. Using env: or $ will point to an environment variable." .
+    # rdfs:range constraint is now handled by sh:NodeShape for ref:InfluxdbReference
 
 ref:influxdbOrg a owl:DatatypeProperty ;
     rdfs:label "Org" ;
