@@ -166,7 +166,7 @@ ref:InfluxdbReference a owl:Class, sh:NodeShape ;
         ]
     ) ;
     sh:property [
-        sh:path ref:influxdbTag ;
+        sh:path influxdb:tagKey ;
         sh:minCount 1 ;
         sh:datatype xsd:string ;
     ] ;
