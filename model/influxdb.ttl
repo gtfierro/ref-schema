@@ -31,13 +31,13 @@ ref:influxdbBucket a owl:DatatypeProperty ;
 ref:influxdbDatabase a owl:DatatypeProperty ;
     rdfs:label "Database" ;
     skos:definition "The database name within the InfluxDB database. Using env: or $ will point to an environment variable." ;
-    rdfs:comment "Compared to previous versions of InfluxDB you can think of a database as a bucket in v2 or as a db/retention_policy in v1" .
-    # rdfs:range constraint is handled by sh:NodeShape for ref:InfluxdbReference in model/all.ttl
+    rdfs:comment "Compared to previous versions of InfluxDB you can think of a database as a bucket in v2 or as a db/retention_policy in v1" ;
+    rdfs:range xsd:string . # For InfluxDB v3. Not part of the core ref:InfluxdbReference SHACL requirements.
 ref:influxdbTable a owl:DatatypeProperty ;
     rdfs:label "Table" ;
     skos:definition "The table name within the InfluxDB database. Using env: or $ will point to an environment variable." ;
-    rdfs:comment "A table is equivalent to a measurement, which has columns that can be of type tag (a string dictionary), int64, float64, uint64, bool, or string and finally every table has a time column that is a nanosecond precision timestamp." .
-    # rdfs:range constraint is now handled by sh:NodeShape for ref:InfluxdbReference
+    rdfs:comment "A table is equivalent to a measurement, which has columns that can be of type tag (a string dictionary), int64, float64, uint64, bool, or string and finally every table has a time column that is a nanosecond precision timestamp." ;
+    rdfs:range xsd:string . # For InfluxDB v3. Not part of the core ref:InfluxdbReference SHACL requirements.
 
 ref:influxdbMeasurement a owl:DatatypeProperty ;
     rdfs:label "Measurement" ;

@@ -136,7 +136,7 @@ ref:InfluxdbServer a owl:Class, sh:NodeShape ;
 ref:InfluxdbReference a owl:Class, sh:NodeShape ;
     rdfs:subClassOf ref:TimeseriesReference ;
     rdfs:label "InfluxDB Record Reference" ;
-    skos:definition "Refers to an InfluxDB table (measurement) item" ;
+    skos:definition "Refers to an InfluxDB measurement within a bucket, stored on an InfluxDB server." ;
     sh:property [
         sh:path ref:storedAt ;      # This TimeseriesReference property links to the server
         sh:class ref:InfluxdbServer ; # The server must be an InfluxdbServer instance
@@ -144,39 +144,16 @@ ref:InfluxdbReference a owl:Class, sh:NodeShape ;
         sh:minCount 1 ;
         sh:maxCount 1 ;             # Typically, a reference is to one server
     ] ;
-    sh:or (
-        [   # Version 2 requirements
-            sh:property [
-                sh:path ref:influxdbMeasurement ;
-                sh:minCount 1 ;
-                sh:maxCount 1 ;
-                sh:datatype xsd:string ;
-            ] ;
-            sh:property [
-                sh:path ref:influxdbBucket ;
-                sh:minCount 1 ;
-                sh:maxCount 1 ;
-                sh:datatype xsd:string ;
-            ] ;
-        ]
-        [   # Version 3 requirements
-            sh:property [
-                sh:path ref:influxdbDatabase ;
-                sh:minCount 1 ;
-                sh:maxCount 1 ;
-                sh:datatype xsd:string ;
-            ] ;
-            sh:property [
-                sh:path ref:influxdbTable ;
-                sh:minCount 1 ;
-                sh:maxCount 1 ;
-                sh:datatype xsd:string ;
-            ] ;
-        ]
-    ) ;
     sh:property [
-        sh:path influxdb:tagKey ;
+        sh:path ref:influxdbMeasurement ;
         sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+    ] ;
+    sh:property [
+        sh:path ref:influxdbBucket ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
         sh:datatype xsd:string ;
     ] ;
     .
