@@ -125,15 +125,24 @@ ref:InfluxdbServer a owl:Class, sh:NodeShape ;
         sh:path ref:influxdbTokenLocation ;
         sh:minCount 1 ;
         sh:datatype xsd:string ;
-    ]. 
+    ] ;
+    sh:property [
+        sh:path ref:influxdbOrg ;
+        sh:minCount 1 ; # Assuming org is generally required for InfluxDB v2+
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+    ].
 
 ref:InfluxdbReference a owl:Class, sh:NodeShape ;
     rdfs:subClassOf ref:TimeseriesReference ;
     rdfs:label "InfluxDB Record Reference" ;
     skos:definition "Refers to an InfluxDB table (measurement) item" ;
     sh:property [
-        sh:path ref:InfluxdbServer ;
+        sh:path ref:storedAt ;      # This TimeseriesReference property links to the server
+        sh:class ref:InfluxdbServer ; # The server must be an InfluxdbServer instance
+        sh:nodeKind sh:IRI ;        # It must be an IRI (instance)
         sh:minCount 1 ;
+        sh:maxCount 1 ;             # Typically, a reference is to one server
     ] ;
     sh:or (
         [   # Version 2 requirements

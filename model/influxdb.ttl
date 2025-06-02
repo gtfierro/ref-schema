@@ -49,7 +49,7 @@ ref:influxdbOrg a owl:DatatypeProperty ;
     rdfs:label "Org" ;
     skos:definition "An organization is a workspace for a group of users. All dashboards, tasks, buckets, members, etc., belong to an organization." ;
     rdfs:comment "An organization is a workspace for a group of users. All dashboards, tasks, buckets, members, etc., belong to an organization." ;
-    rdfs:range xsd:string . # Not currently used in model/all.ttl shapes
+    rdfs:range xsd:string . # rdfs:range constraint is handled by sh:NodeShape for ref:InfluxdbServer in model/all.ttl
 
 ref:influxdbAuthenticationMethod a owl:DatatypeProperty ;
     rdfs:label "Authentication Method" ;
