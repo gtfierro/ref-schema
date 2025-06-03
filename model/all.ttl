@@ -105,53 +105,53 @@ ref:TimeseriesReference a owl:Class,
             sh:nodeKind sh:IRIOrLiteral ;
             sh:path ref:storedAt ] .
 
-ref:InfluxdbServer a owl:Class, sh:NodeShape ;
+ref:InfluxDBServer a owl:Class, sh:NodeShape ;
     #rdfs:subClassOf ref:ExternalReference ;
     rdfs:label "InfluxDB Database Server Reference" ;
     rdfs:comment "A reference to an InfluxDB database server." ;
     skos:definition "Refers to an InfluxDB database server" ;
     sh:property [
-        sh:path ref:influxdbUrl ;
+        sh:path ref:influxDBUrl ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:datatype xsd:anyURI ;
     ] ;
     sh:property [
-        sh:path ref:influxdbAuthenticationMethod ;
+        sh:path ref:influxDBAuthenticationMethod ;
         sh:minCount 1 ;
         sh:datatype xsd:string ;
     ] ;
     sh:property [
-        sh:path ref:influxdbTokenLocation ;
+        sh:path ref:influxDBTokenLocation ;
         sh:minCount 1 ;
         sh:datatype xsd:string ;
     ] ;
     sh:property [
-        sh:path ref:influxdbOrg ;
-        sh:minCount 1 ; # Assuming org is generally required for InfluxDB v2+
+        sh:path ref:influxDBOrg ;
+        sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:datatype xsd:string ;
     ].
 
-ref:InfluxdbReference a owl:Class, sh:NodeShape ;
+ref:InfluxDBReference a owl:Class, sh:NodeShape ;
     rdfs:subClassOf ref:TimeseriesReference ;
     rdfs:label "InfluxDB Record Reference" ;
     skos:definition "Refers to an InfluxDB measurement within a bucket, stored on an InfluxDB server." ;
     sh:property [
-        sh:path ref:storedAt ;      # This TimeseriesReference property links to the server
-        sh:class ref:InfluxdbServer ; # The server must be an InfluxdbServer instance
-        sh:nodeKind sh:IRI ;        # It must be an IRI (instance)
+        sh:path ref:storedAt ;
+        sh:class ref:InfluxDBServer ;
+        sh:nodeKind sh:IRI ;
         sh:minCount 1 ;
-        sh:maxCount 1 ;             # Typically, a reference is to one server
+        sh:maxCount 1 ;
     ] ;
     sh:property [
-        sh:path ref:influxdbMeasurement ;
+        sh:path ref:influxDBMeasurement ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:datatype xsd:string ;
     ] ;
     sh:property [
-        sh:path ref:influxdbBucket ;
+        sh:path ref:influxDBBucket ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:datatype xsd:string ;

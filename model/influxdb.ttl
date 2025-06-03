@@ -15,72 +15,46 @@ influxdb: a owl:Ontology .
 ref:hasInfluxDBReference a owl:ObjectProperty ;
     rdfs:label "hasInfluxDBReference" ;
     skos:definition "A reference to the InfluxDB timeseries data that defines this entity." ;
-    rdfs:comment "A reference to the InfluxDB database that defines this entity." ;
     rdfs:subPropertyOf ref:hasTimeseriesReference .
 
-ref:influxdbUrl a owl:DatatypeProperty ;
+ref:influxDBUrl a owl:DatatypeProperty ;
     rdfs:label "URL" ;
-    rdfs:comment "The URL of the InfluxDB database, including TCP port (default=8086)." .
-    # rdfs:range constraint is handled by sh:NodeShape for ref:InfluxdbServer in model/all.ttl
+    skos:definition "The URL of the InfluxDB database, including TCP port (default=8086)." ;
+    rdfs:range xsd:anyURI .
 
-ref:influxdbBucket a owl:DatatypeProperty ;
+ref:influxDBBucket a owl:DatatypeProperty ;
     rdfs:label "Bucket" ;
-    rdfs:comment "The bucket name within the InfluxDB database. Using env: or $ will point to an environment variable." .
-    # rdfs:range constraint is handled by sh:NodeShape for ref:InfluxdbReference in model/all.ttl
+    skos:definition "The bucket name within the InfluxDB database. Using env: or $ will point to an environment variable." .
+    rdfs:range xsd:string .
 
-ref:influxdbDatabase a owl:DatatypeProperty ;
-    rdfs:label "Database" ;
-    skos:definition "The database name within the InfluxDB database. Using env: or $ will point to an environment variable." ;
-    rdfs:comment "Compared to previous versions of InfluxDB you can think of a database as a bucket in v2 or as a db/retention_policy in v1" ;
-    rdfs:range xsd:string . # For InfluxDB v3. Not part of the core ref:InfluxdbReference SHACL requirements.
-ref:influxdbTable a owl:DatatypeProperty ;
-    rdfs:label "Table" ;
-    skos:definition "The table name within the InfluxDB database. Using env: or $ will point to an environment variable." ;
-    rdfs:comment "A table is equivalent to a measurement, which has columns that can be of type tag (a string dictionary), int64, float64, uint64, bool, or string and finally every table has a time column that is a nanosecond precision timestamp." ;
-    rdfs:range xsd:string . # For InfluxDB v3. Not part of the core ref:InfluxdbReference SHACL requirements.
-
-ref:influxdbMeasurement a owl:DatatypeProperty ;
+ref:influxDBMeasurement a owl:DatatypeProperty ;
     rdfs:label "Measurement" ;
     skos:definition "The measurement name within the InfluxDB database. Using env: or $ will point to an environment variable." ;
-    rdfs:comment "The measurement name within the InfluxDB database. Using env: or $ will point to an environment variable." .
-    # rdfs:range constraint is now handled by sh:NodeShape for ref:InfluxdbReference
+    rdfs:range xsd:string .
 
-ref:influxdbOrg a owl:DatatypeProperty ;
+ref:influxDBOrg a owl:DatatypeProperty ;
     rdfs:label "Org" ;
     skos:definition "An organization is a workspace for a group of users. All dashboards, tasks, buckets, members, etc., belong to an organization." ;
-    rdfs:comment "An organization is a workspace for a group of users. All dashboards, tasks, buckets, members, etc., belong to an organization." ;
-    rdfs:range xsd:string . # rdfs:range constraint is handled by sh:NodeShape for ref:InfluxdbServer in model/all.ttl
+    rdfs:range xsd:string .
 
-ref:influxdbAuthenticationMethod a owl:DatatypeProperty ;
+ref:influxDBAuthenticationMethod a owl:DatatypeProperty ;
     rdfs:label "Authentication Method" ;
     skos:definition "The authentication method used to connect to the database.Using env: or $ will point to an environment variable." ;
-    rdfs:comment "The authentication method used to connect to the database.Using env: or $ will point to an environment variable." .
-    # rdfs:range constraint is handled by sh:NodeShape for ref:InfluxdbServer in model/all.ttl
+    rdfs:range xsd:string .
 
-ref:influxdbTokenLocation a owl:DatatypeProperty ;
+ref:influxDBTokenLocation a owl:DatatypeProperty ;
     rdfs:label "Token Location" ;
     skos:definition "The location where the authentication token can be found (e.g., environment variable, file path).Using env: or $ will point to an environment variable. Never store token in plaintext." ;
-    rdfs:comment "The location where the authentication token can be found (e.g., environment variable, file path).Using env: or $ will point to an environment variable. Never store token in plaintext." .
-    # rdfs:range constraint is handled by sh:NodeShape for ref:InfluxdbServer in model/all.ttl
-
-influxdb:fieldKey a owl:DatatypeProperty;
-  rdfs:label "Fiel Key";
-  rdfs:comment "he key part of the key-value pair that makes up a field. Field keys are strings and they store metadata.";
-  rdfs:range xsd:string.
-
-influxdb:tagKey a owl:DatatypeProperty;
-  rdfs:label "Tag Key";
-  rdfs:comment "The key part of the key-value pair that makes up a tag. Tag keys are strings and they store metadata. Tag keys are indexed so queries on tag keys are performant. In the context of an external reference, tag key can be used to query the data point.";
-  rdfs:range xsd:string .
+    rdfs:range xsd:string .
 
 ref:InfluxDBReferenceShape a sh:NodeShape ;
     skos:definition "Infers an InfluxDBReference instance from the object of an hasExternalReference." ;
     sh:targetObjectsOf ref:hasExternalReference ;
     sh:rule [
       a sh:TripleRule ;
-      sh:condition ref:InfluxdbReference ;
+      sh:condition ref:InfluxDBReference ;
       sh:subject sh:this ;
       sh:predicate rdf:type ;
-      sh:object ref:InfluxdbReference ;
+      sh:object ref:InfluxDBReference ;
     ] ;
 .
