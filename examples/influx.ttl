@@ -1,0 +1,33 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix ref: <https://brickschema.org/schema/Brick/ref#> .
+@prefix s223: <http://data.ashrae.org/standard223#> .
+@prefix brick: <https://brickschema.org/schema/Brick#> .
+@prefix bacnet: <http://data.ashrae.org/bacnet/2020#> .
+@prefix : <urn:ex1/> .
+
+<urn:influx>
+  a owl:Ontology ;
+  owl:imports <https://brickschema.org/schema/Brick/ref#> ;
+.
+
+
+:server a ref:InfluxdbServer ;
+    ref:influxDBUrl <http://localhost:8086> ;
+    ref:influxDBAuthenticationMethod "Basic" ;
+    ref:influxDBTokenLocation "$INFLUXDB_TOKEN" ;
+    ref:influxDBOrg "my-org" ;
+.
+
+:sensor1 a brick:Temperature_Sensor ; 
+    ref:hasExternalReference [
+        ref:storedAt :server ;
+        ref:influxdbMeasurement "temperature1" ;
+        ref:influxdbBucket "my-bucket" ;
+    ] .
+
+:sensor2 a brick:Temperature_Sensor ; 
+    ref:hasExternalReference [
+        ref:storedAt :server ;
+        ref:influxdbMeasurement "temperature2" ;
+        ref:influxdbBucket "my-bucket" ;
+    ] .
