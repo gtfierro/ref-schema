@@ -1,5 +1,7 @@
 # Ref Schema
 
+Download the latest [`ref-schema.ttl`](https://github.com/gtfierro/ref-schema/releases/tag/nightly) from the Releases tab
+
 Docs are [here](https://ref-schema.brickschema.org/)
 
 ## Extending Ref Schema
