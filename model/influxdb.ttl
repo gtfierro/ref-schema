@@ -24,7 +24,7 @@ ref:influxDBUrl a owl:DatatypeProperty ;
 
 ref:influxDBBucket a owl:DatatypeProperty ;
     rdfs:label "Bucket" ;
-    skos:definition "The bucket name within the InfluxDB database. Using env: or $ will point to an environment variable." .
+    skos:definition "The bucket name within the InfluxDB database. Using env: or $ will point to an environment variable." ;
     rdfs:range xsd:string .
 
 ref:influxDBMeasurement a owl:DatatypeProperty ;
