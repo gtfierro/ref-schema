@@ -1,10 +1,14 @@
-.PHONY: test
+.PHONY: test clean
 
-compile: model/*.ttl
+build/ref-schema.ttl: model/*.ttl
+	mkdir -p build
 	uv run python tools/compile.py
 
-test: compile
+test: build/ref-schema.ttl
 	uv run pytest -s -vvvv
 
-doc.html:
+clean:
+	rm -rf build/
+
+doc.html: build/ref-schema.ttl
 	uv run pylode build/ref-schema.ttl -o doc.html -c true
