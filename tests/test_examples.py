@@ -31,3 +31,12 @@ def test_data_validation(data_file):
     if not valid:
         data_graph.serialize(f"/tmp/{os.path.basename(data_file)}", format="ttl")
         assert valid, f"{data_file}:\n{res_text}"
+
+def test_sh_prefixes():
+    ref_schema = rdflib.Graph().parse("build/ref-schema.ttl", format="turtle")
+    # ensure all sh:prefixes point to the root ontology
+    res = ref_schema.query("""SELECT ?rule ?ontology WHERE {
+        ?rule sh:target/sh:prefixes ?ontology .
+        FILTER(?ontology != <https://brickschema.org/schema/Brick/ref>)
+    }""")
+    assert len(res) == 0, f"Some sh:prefixes do not point to the root ontology:\n{res.bindings}"

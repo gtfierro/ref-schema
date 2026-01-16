@@ -1,6 +1,6 @@
 .PHONY: test clean
 
-build/ref-schema.ttl: model/*.ttl
+build/ref-schema.ttl: model/*.ttl tools/compile.py
 	mkdir -p build
 	uv run python tools/compile.py
 
