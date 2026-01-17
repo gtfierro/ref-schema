@@ -37,6 +37,6 @@ def test_sh_prefixes():
     # ensure all sh:prefixes point to the root ontology
     res = ref_schema.query("""SELECT ?rule ?ontology WHERE {
         ?rule sh:target/sh:prefixes ?ontology .
-        FILTER(?ontology != <https://brickschema.org/schema/Brick/ref>)
+        FILTER NOT EXISTS { ?rule sh:target/sh:prefixes <https://brickschema.org/schema/Brick/ref> }
     }""")
     assert len(res) == 0, f"Some sh:prefixes do not point to the root ontology:\n{res.bindings}"
