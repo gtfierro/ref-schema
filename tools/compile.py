@@ -11,6 +11,11 @@ print(f"Imported {len(imported)} ontologies:")
 for ont in imported:
     print(f" - {ont}")
 
+graph.bind("ref", "https://brickschema.org/schema/Brick/ref#")
+graph.bind("ifc", "https://brickschema.org/schema/Brick/ref/ifc#")
+graph.bind("tsdb", "https://brickschema.org/schema/Brick/ref/tsdb#")
+graph.bind("influxdb", "https://brickschema.org/schema/Brick/ref/influxdb#")
+graph.bind("csv", "https://brickschema.org/schema/Brick/ref/csv#")
 
 def _run_git_command(*args: str) -> str:
     try:
