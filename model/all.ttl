@@ -11,6 +11,7 @@
 @prefix ifc: <https://brickschema.org/schema/Brick/ref/ifc#> .
 @prefix tsdb: <https://brickschema.org/schema/Brick/ref/tsdb#> .
 @prefix influxdb: <https://brickschema.org/schema/Brick/ref/influxdb#> .
+@prefix http: <https://brickschema.org/schema/Brick/ref/http#> .
 
 <https://brickschema.org/schema/Brick/ref> a owl:Ontology ;
     dcterms:title "Ref Schema" ;
@@ -22,6 +23,7 @@
     owl:imports <https://brickschema.org/schema/Brick/ref/ifc#> ;
     owl:imports <https://brickschema.org/schema/Brick/ref/csv#> ;
     owl:imports <https://brickschema.org/schema/Brick/ref/tsdb#> ;
+    owl:imports <https://brickschema.org/schema/Brick/ref/http#> ;
     sh:declare [ sh:namespace "http://www.w3.org/2000/01/rdf-schema#"^^xsd:anyURI ;
             sh:prefix "rdfs" ],
         [ sh:namespace "https://brickschema.org/schema/Brick/ref#"^^xsd:anyURI ;
@@ -157,3 +159,75 @@ ref:InfluxDBReference a owl:Class, sh:NodeShape ;
         sh:datatype xsd:string ;
     ] ;
     .
+
+ref:HTTPReference a owl:Class, sh:NodeShape ;
+    rdfs:subClassOf ref:ExternalReference ;
+    rdfs:label "HTTP Reference" ;
+    skos:definition "A reference to data accessible via an HTTP API endpoint." ;
+    sh:property [
+        sh:path ref:httpBaseUrl ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:anyURI ;
+    ] ;
+    sh:property [
+        sh:path ref:httpMethod ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:in ("GET" "POST" "PUT") ;
+    ] ;
+    sh:property [
+        sh:path ref:hasHTTPQueryParam ;
+        sh:class ref:HTTPQueryParameter ;
+    ] ;
+    sh:property [
+        sh:path ref:hasHTTPHeader ;
+        sh:class ref:HTTPHeader ;
+    ] ;
+    sh:property [
+        sh:path ref:httpContentType ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+    ] .
+
+ref:HTTPTimeseriesReference a owl:Class, sh:NodeShape ;
+    rdfs:subClassOf ref:TimeseriesReference, ref:HTTPReference ;
+    rdfs:label "HTTP Timeseries Reference" ;
+    skos:definition "A reference to timeseries data accessible via an HTTP API endpoint." ;
+    sh:property [
+        sh:path ref:httpResponsePath ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+    ] .
+
+ref:HTTPQueryParameterShape a sh:NodeShape ;
+    sh:targetClass ref:HTTPQueryParameter ;
+    skos:definition "Shape for validating HTTP query parameters." ;
+    sh:property [
+        sh:path ref:httpParamName ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+    ] ;
+    sh:property [
+        sh:path ref:httpParamValue ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+    ] .
+
+ref:HTTPHeaderShape a sh:NodeShape ;
+    sh:targetClass ref:HTTPHeader ;
+    skos:definition "Shape for validating HTTP headers." ;
+    sh:property [
+        sh:path ref:httpHeaderName ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+    ] ;
+    sh:property [
+        sh:path ref:httpHeaderValue ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+    ] .
