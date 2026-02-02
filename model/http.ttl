@@ -1,0 +1,110 @@
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix ref: <https://brickschema.org/schema/Brick/ref#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix http: <https://brickschema.org/schema/Brick/ref/http#> .
+
+http: a owl:Ontology .
+
+# Object Property for linking to HTTP references
+ref:hasHTTPReference a owl:ObjectProperty ;
+    rdfs:label "hasHTTPReference" ;
+    skos:definition "A reference to data accessible via an HTTP API endpoint." ;
+    rdfs:subPropertyOf ref:hasExternalReference .
+
+ref:hasHTTPTimeseriesReference a owl:ObjectProperty ;
+    rdfs:label "hasHTTPTimeseriesReference" ;
+    skos:definition "A reference to timeseries data accessible via an HTTP API endpoint." ;
+    rdfs:subPropertyOf ref:hasTimeseriesReference .
+
+# Server/Endpoint properties
+ref:httpBaseUrl a owl:DatatypeProperty ;
+    rdfs:label "HTTP Base URL" ;
+    skos:definition "The base URL of the HTTP API endpoint, excluding query parameters." ;
+    rdfs:range xsd:anyURI .
+
+ref:httpMethod a owl:DatatypeProperty ;
+    rdfs:label "HTTP Method" ;
+    skos:definition "The HTTP method to use for the request (GET, POST, PUT, DELETE, etc.). Defaults to GET if not specified." ;
+    rdfs:range xsd:string .
+
+# Query parameter properties
+ref:hasHTTPQueryParam a owl:ObjectProperty ;
+    rdfs:label "has HTTP Query Parameter" ;
+    skos:definition "Links to an HTTP query parameter key-value pair." ;
+    rdfs:range ref:HTTPQueryParameter .
+
+ref:httpParamName a owl:DatatypeProperty ;
+    rdfs:label "HTTP Parameter Name" ;
+    skos:definition "The name (key) of an HTTP query parameter." ;
+    rdfs:range xsd:string .
+
+ref:httpParamValue a owl:DatatypeProperty ;
+    rdfs:label "HTTP Parameter Value" ;
+    skos:definition "The value of an HTTP query parameter. Use env: or $ prefix to reference environment variables." ;
+    rdfs:range xsd:string .
+
+# Header properties
+ref:hasHTTPHeader a owl:ObjectProperty ;
+    rdfs:label "has HTTP Header" ;
+    skos:definition "Links to an HTTP header key-value pair." ;
+    rdfs:range ref:HTTPHeader .
+
+ref:httpHeaderName a owl:DatatypeProperty ;
+    rdfs:label "HTTP Header Name" ;
+    skos:definition "The name of an HTTP header." ;
+    rdfs:range xsd:string .
+
+ref:httpHeaderValue a owl:DatatypeProperty ;
+    rdfs:label "HTTP Header Value" ;
+    skos:definition "The value of an HTTP header. Use env: or $ prefix to reference environment variables. Never store secrets in plaintext." ;
+    rdfs:range xsd:string .
+
+# Request/Response properties
+ref:httpResponsePath a owl:DatatypeProperty ;
+    rdfs:label "HTTP Response Path" ;
+    skos:definition "A JSONPath or similar expression for extracting data from the HTTP response." ;
+    rdfs:range xsd:string .
+
+ref:httpContentType a owl:DatatypeProperty ;
+    rdfs:label "HTTP Content Type" ;
+    skos:definition "The expected content type of the response (e.g., application/json, text/csv)." ;
+    rdfs:range xsd:string .
+
+# Helper classes for structured parameters
+ref:HTTPQueryParameter a owl:Class ;
+    rdfs:label "HTTP Query Parameter" ;
+    skos:definition "A key-value pair representing an HTTP query parameter." .
+
+ref:HTTPHeader a owl:Class ;
+    rdfs:label "HTTP Header" ;
+    skos:definition "A key-value pair representing an HTTP header." .
+
+# Inference rules - use property-based conditions to avoid matching non-HTTP references
+ref:HTTPReferenceShape a sh:NodeShape ;
+    skos:definition "Infers an HTTPReference instance from the object of an hasExternalReference when httpBaseUrl is present." ;
+    sh:targetObjectsOf ref:hasExternalReference ;
+    sh:rule [
+        a sh:TripleRule ;
+        sh:condition [ sh:property [ sh:path ref:httpBaseUrl ; sh:minCount 1 ] ] ;
+        sh:subject sh:this ;
+        sh:predicate rdf:type ;
+        sh:object ref:HTTPReference ;
+    ] .
+
+ref:HTTPTimeseriesReferenceShape a sh:NodeShape ;
+    skos:definition "Infers an HTTPTimeseriesReference instance from the object of an hasExternalReference when httpBaseUrl and hasTimeseriesId are present." ;
+    sh:targetObjectsOf ref:hasExternalReference ;
+    sh:rule [
+        a sh:TripleRule ;
+        sh:condition [
+            sh:property [ sh:path ref:httpBaseUrl ; sh:minCount 1 ] ;
+            sh:property [ sh:path ref:hasTimeseriesId ; sh:minCount 1 ]
+        ] ;
+        sh:subject sh:this ;
+        sh:predicate rdf:type ;
+        sh:object ref:HTTPTimeseriesReference ;
+    ] .
