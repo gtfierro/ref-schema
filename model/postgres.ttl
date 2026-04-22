@@ -1,0 +1,152 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix postgres: <https://brickschema.org/schema/Brick/ref/postgres#> .
+@prefix ref: <https://brickschema.org/schema/Brick/ref#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+postgres: a owl:Ontology .
+
+ref:hasPostgresReference a owl:ObjectProperty ;
+    rdfs:label "hasPostgresReference" ;
+    skos:definition "A reference to the PostgreSQL (or TimescaleDB) data that defines this entity." ;
+    rdfs:subPropertyOf ref:hasTimeseriesReference .
+
+postgres:PGReference a sh:NodeShape, owl:Class ;
+    rdfs:subClassOf ref:TimeseriesReference ;
+    rdfs:label "PGReference" ;
+    skos:definition "A reference to data stored in a PostgreSQL (or PostgreSQL-compatible, e.g. TimescaleDB) database. Connection is specified either via postgresDSN or via the individual postgresHost/postgresDB/postgresUser/postgresPass fields." ;
+    sh:or (
+        [ sh:property [ sh:path postgres:postgresDSN ; sh:minCount 1 ] ]
+        [ sh:and (
+            [ sh:property [ sh:path postgres:postgresHost ; sh:minCount 1 ] ]
+            [ sh:property [ sh:path postgres:postgresDB   ; sh:minCount 1 ] ]
+            [ sh:property [ sh:path postgres:postgresUser ; sh:minCount 1 ] ]
+            [ sh:property [ sh:path postgres:postgresPass ; sh:minCount 1 ] ]
+        ) ]
+    ) ;
+    sh:property [
+        sh:path postgres:postgresDSN ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:property [
+        sh:path postgres:postgresHost ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:property [
+        sh:path postgres:postgresPort ;
+        sh:datatype xsd:integer ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:property [
+        sh:path postgres:postgresDB ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:property [
+        sh:path postgres:postgresUser ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:property [
+        sh:path postgres:postgresPass ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:property [
+        sh:path postgres:postgresTable ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:property [
+        sh:path postgres:postgresQuery ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:property [
+        sh:path postgres:postgresTimeColumn ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:property [
+        sh:path postgres:postgresValueColumn ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:property [
+        sh:path postgres:postgresPointFilter ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+    ] ;
+.
+
+postgres:postgresDSN a owl:DatatypeProperty ;
+    rdfs:label "DSN" ;
+    skos:definition "A PostgreSQL connection string / DSN (e.g. 'postgresql://user:pass@host:5432/db'). When set, takes precedence over the individual host/port/db/user/pass fields. Using env: or $ will point to an environment variable." ;
+    rdfs:range xsd:string .
+
+postgres:postgresHost a owl:DatatypeProperty ;
+    rdfs:label "Host" ;
+    skos:definition "The hostname or IP address of the PostgreSQL server. Using env: or $ will point to an environment variable." ;
+    rdfs:range xsd:string .
+
+postgres:postgresPort a owl:DatatypeProperty ;
+    rdfs:label "Port" ;
+    skos:definition "The TCP port of the PostgreSQL server (default=5432). Using env: or $ will point to an environment variable." ;
+    rdfs:range xsd:integer .
+
+postgres:postgresDB a owl:DatatypeProperty ;
+    rdfs:label "Database" ;
+    skos:definition "The name of the database within the PostgreSQL server. Using env: or $ will point to an environment variable." ;
+    rdfs:range xsd:string .
+
+postgres:postgresUser a owl:DatatypeProperty ;
+    rdfs:label "User" ;
+    skos:definition "The username used to authenticate to the PostgreSQL server. Using env: or $ will point to an environment variable." ;
+    rdfs:range xsd:string .
+
+postgres:postgresPass a owl:DatatypeProperty ;
+    rdfs:label "Password" ;
+    skos:definition "The password (or reference to one) used to authenticate to the PostgreSQL server. Using env: or $ will point to an environment variable. Never store the password in plaintext." ;
+    rdfs:range xsd:string .
+
+postgres:postgresTable a owl:DatatypeProperty ;
+    rdfs:label "Table" ;
+    skos:definition "The name of the table (or hypertable) holding the data for this reference." ;
+    rdfs:range xsd:string .
+
+postgres:postgresQuery a owl:DatatypeProperty ;
+    rdfs:label "Query" ;
+    skos:definition "A SQL query used to fetch data for this reference. Mutually exclusive with postgresTable: if set, the query is used as-is instead of constructing one from table/column/filter fields." ;
+    rdfs:range xsd:string .
+
+postgres:postgresTimeColumn a owl:DatatypeProperty ;
+    rdfs:label "Time Column" ;
+    skos:definition "The name of the column in the table that holds the timestamp of each record." ;
+    rdfs:range xsd:string .
+
+postgres:postgresValueColumn a owl:DatatypeProperty ;
+    rdfs:label "Value Column" ;
+    skos:definition "The name of the column in the table that holds the value of each record." ;
+    rdfs:range xsd:string .
+
+postgres:postgresPointFilter a owl:DatatypeProperty ;
+    rdfs:label "Point Filter" ;
+    skos:definition "A SQL WHERE-clause fragment (or equivalent filter expression) that selects the rows belonging to this specific point from a multi-point table." ;
+    rdfs:range xsd:string .
+
+postgres:PGReferenceShape a sh:NodeShape ;
+    skos:definition "Infers a PGReference instance from the object of an hasExternalReference." ;
+    sh:targetObjectsOf ref:hasExternalReference ;
+    sh:rule [
+      a sh:TripleRule ;
+      sh:condition postgres:PGReference ;
+      sh:subject sh:this ;
+      sh:predicate rdf:type ;
+      sh:object postgres:PGReference ;
+    ] ;
+.

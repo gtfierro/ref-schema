@@ -22,6 +22,7 @@
     owl:imports <https://brickschema.org/schema/Brick/ref/ifc#> ;
     owl:imports <https://brickschema.org/schema/Brick/ref/csv#> ;
     owl:imports <https://brickschema.org/schema/Brick/ref/tsdb#> ;
+    owl:imports <https://brickschema.org/schema/Brick/ref/postgres#> ;
     sh:declare [ sh:namespace "http://www.w3.org/2000/01/rdf-schema#"^^xsd:anyURI ;
             sh:prefix "rdfs" ],
         [ sh:namespace "https://brickschema.org/schema/Brick/ref#"^^xsd:anyURI ;
