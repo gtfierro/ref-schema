@@ -1,0 +1,78 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix file: <https://brickschema.org/schema/Brick/ref/file#> .
+@prefix ref: <https://brickschema.org/schema/Brick/ref#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+file: a owl:Ontology .
+
+ref:hasFileReference a owl:ObjectProperty ;
+    rdfs:label "hasFileReference" ;
+    skos:definition "A reference to a file (e.g. CSV, Parquet) that holds the timeseries data for this entity." ;
+    rdfs:subPropertyOf ref:hasTimeseriesReference .
+
+file:FileReference a sh:NodeShape, owl:Class ;
+    rdfs:subClassOf ref:TimeseriesReference ;
+    rdfs:label "FileReference" ;
+    skos:definition "Abstract reference to timeseries data stored in a file on disk or object storage. Concrete subclasses (CSVReference, ParquetReference) identify the file format." ;
+    sh:property [
+        sh:path file:hasFilePath ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:property [
+        sh:path file:hasTimeColumn ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:property [
+        sh:path file:hasValueColumn ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+    ] ;
+.
+
+file:CSVReference a sh:NodeShape, owl:Class ;
+    rdfs:subClassOf file:FileReference ;
+    rdfs:label "CSVReference" ;
+    skos:definition "A reference to timeseries data stored in a CSV file." ;
+.
+
+file:ParquetReference a sh:NodeShape, owl:Class ;
+    rdfs:subClassOf file:FileReference ;
+    rdfs:label "ParquetReference" ;
+    skos:definition "A reference to timeseries data stored in a Parquet file." ;
+.
+
+file:hasFilePath a owl:DatatypeProperty ;
+    rdfs:label "File Path" ;
+    skos:definition "The path or URI at which the file can be located (local path, s3://, gs://, https://, etc.). Using env: or $ will point to an environment variable." ;
+    rdfs:range xsd:string .
+
+file:hasTimeColumn a owl:DatatypeProperty ;
+    rdfs:label "Time Column" ;
+    skos:definition "The name of the column in the file that holds the timestamp of each record." ;
+    rdfs:range xsd:string .
+
+file:hasValueColumn a owl:DatatypeProperty ;
+    rdfs:label "Value Column" ;
+    skos:definition "The name of the column in the file that holds the value of each record." ;
+    rdfs:range xsd:string .
+
+file:FileReferenceShape a sh:NodeShape ;
+    skos:definition "Infers a FileReference instance from the object of an hasExternalReference." ;
+    sh:targetObjectsOf ref:hasExternalReference ;
+    sh:rule [
+      a sh:TripleRule ;
+      sh:condition file:FileReference ;
+      sh:subject sh:this ;
+      sh:predicate rdf:type ;
+      sh:object file:FileReference ;
+    ] ;
+.
