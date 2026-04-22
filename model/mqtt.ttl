@@ -1,0 +1,85 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix mqtt: <https://brickschema.org/schema/Brick/ref/mqtt#> .
+@prefix ref: <https://brickschema.org/schema/Brick/ref#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+mqtt: a owl:Ontology .
+
+ref:hasMQTTReference a owl:ObjectProperty ;
+    rdfs:label "hasMQTTReference" ;
+    skos:definition "A reference to an MQTT topic that publishes the timeseries data for this entity." ;
+    rdfs:subPropertyOf ref:hasTimeseriesReference .
+
+mqtt:MQTTReference a sh:NodeShape, owl:Class ;
+    rdfs:subClassOf ref:TimeseriesReference ;
+    rdfs:label "MQTTReference" ;
+    skos:definition "A reference to an MQTT topic, hosted on a broker, that publishes the live data for this entity." ;
+    sh:property [
+        sh:path mqtt:mqttBroker ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:property [
+        sh:path mqtt:mqttPort ;
+        sh:datatype xsd:integer ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:property [
+        sh:path mqtt:mqttTopic ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:property [
+        sh:path mqtt:mqttValueKey ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:property [
+        sh:path mqtt:mqttTimeKey ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+    ] ;
+.
+
+mqtt:mqttBroker a owl:DatatypeProperty ;
+    rdfs:label "Broker" ;
+    skos:definition "The hostname, IP, or URI of the MQTT broker. Using env: or $ will point to an environment variable." ;
+    rdfs:range xsd:string .
+
+mqtt:mqttPort a owl:DatatypeProperty ;
+    rdfs:label "Port" ;
+    skos:definition "The TCP port of the MQTT broker (default=1883, or 8883 for MQTT over TLS). Using env: or $ will point to an environment variable." ;
+    rdfs:range xsd:integer .
+
+mqtt:mqttTopic a owl:DatatypeProperty ;
+    rdfs:label "Topic" ;
+    skos:definition "The MQTT topic on which values for this entity are published." ;
+    rdfs:range xsd:string .
+
+mqtt:mqttValueKey a owl:DatatypeProperty ;
+    rdfs:label "Value Key" ;
+    skos:definition "When the MQTT payload is a JSON object, the key whose value holds the measurement. If omitted, the payload itself is interpreted as the value." ;
+    rdfs:range xsd:string .
+
+mqtt:mqttTimeKey a owl:DatatypeProperty ;
+    rdfs:label "Time Key" ;
+    skos:definition "When the MQTT payload is a JSON object, the key whose value holds the timestamp. If omitted, the receive time is used." ;
+    rdfs:range xsd:string .
+
+mqtt:MQTTReferenceShape a sh:NodeShape ;
+    skos:definition "Infers an MQTTReference instance from the object of an hasExternalReference." ;
+    sh:targetObjectsOf ref:hasExternalReference ;
+    sh:rule [
+      a sh:TripleRule ;
+      sh:condition mqtt:MQTTReference ;
+      sh:subject sh:this ;
+      sh:predicate rdf:type ;
+      sh:object mqtt:MQTTReference ;
+    ] ;
+.
