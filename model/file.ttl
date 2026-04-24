@@ -1,0 +1,69 @@
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix ref: <https://brickschema.org/schema/Brick/ref#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix file: <https://brickschema.org/schema/Brick/ref/file#> .
+
+file: a owl:Ontology .
+
+ref:hasFileReference a owl:ObjectProperty ;
+    rdfs:range ref:fileReference ;
+    rdfs:subPropertyOf ref:hasExternalReference ;
+    rdfs:label "hasFileReference" ;
+    skos:definition "Relates an entity to a fileReference describing a tabular file (e.g. parquet, csv, tsv) that contains the data for this entity" ;
+.
+
+ref:FileReference a sh:NodeShape, owl:Class ;
+    rdfs:subClassOf ref:ExternalReference ;
+    rdfs:label "File Reference" ;
+    skos:definition "Refers to a tabular file (e.g. parquet, csv, tsv) that contains the timestamped values for this entity, along with the column names holding the timestamps and values" ;
+    sh:property [
+        sh:path ref:fileLocation ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path ref:valueColumnID ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path ref:timeColumnID ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:minCount 1 ;
+    ] ;
+.
+
+ref:fileLocation a owl:DatatypeProperty ;
+    rdfs:range xsd:string ;
+    rdfs:label "fileLocation" ;
+    skos:definition "Path or URI identifying the location of the referenced file" .
+
+ref:timeColumnID a owl:DatatypeProperty ;
+    rdfs:range xsd:string ;
+    rdfs:label "timeColumnID" ;
+    skos:definition "Name of the column in the referenced file that contains the timestamps" .
+
+ref:valueColumnID a owl:DatatypeProperty ;
+    rdfs:range xsd:string ;
+    rdfs:label "valueColumnID" ;
+    skos:definition "Name of the column in the referenced file that contains the values" .
+
+
+ref:fileReferenceShape a sh:NodeShape ;
+    skos:definition "Infers a fileReference instance from the object of an hasExternalReference." ;
+    sh:targetObjectsOf ref:hasExternalReference ;
+    sh:rule [
+      a sh:TripleRule ;
+      sh:condition ref:fileReference ;
+      sh:subject sh:this ;
+      sh:predicate rdf:type ;
+      sh:object ref:fileReference ;
+    ] ;
+.
