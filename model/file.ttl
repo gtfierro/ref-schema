@@ -55,9 +55,9 @@ ref:fileReferenceShape a sh:NodeShape ;
     sh:targetObjectsOf ref:hasExternalReference ;
     sh:rule [
       a sh:TripleRule ;
-      sh:condition ref:fileReference ;
+      sh:condition ref:FileReference ;
       sh:subject sh:this ;
       sh:predicate rdf:type ;
-      sh:object ref:fileReference ;
+      sh:object ref:FileReference ;
     ] ;
 .
