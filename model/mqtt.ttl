@@ -1,0 +1,58 @@
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix ref: <https://brickschema.org/schema/Brick/ref#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix mqtt: <https://brickschema.org/schema/Brick/ref/mqtt#> .
+
+mqtt: a owl:Ontology .
+
+ref:hasMQTTReference a owl:ObjectProperty ;
+    rdfs:range ref:MQTTReference ;
+    rdfs:subPropertyOf ref:hasExternalReference ;
+    rdfs:label "hasMQTTReference" ;
+    skos:definition "Relates an entity to an MQTTReference describing the broker and topic where data for this entity is published" ;
+.
+
+ref:MQTTReference a sh:NodeShape, owl:Class ;
+    rdfs:subClassOf ref:ExternalReference ;
+    rdfs:label "MQTT Reference" ;
+    skos:definition "Refers to an MQTT stream identified by a broker and topic that this entity publishes to or consumes from" ;
+    sh:property [
+        sh:path ref:MQTTBroker ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path ref:MQTTTopic ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:minCount 1 ;
+    ] ;
+.
+
+ref:MQTTBroker a owl:DatatypeProperty ;
+    rdfs:range xsd:string ;
+    rdfs:label "MQTTBroker" ;
+    skos:definition "Address of the MQTT broker (e.g. host, host:port, or mqtt(s):// URI) that hosts the topic for this reference" .
+
+ref:MQTTTopic a owl:DatatypeProperty ;
+    rdfs:range xsd:string ;
+    rdfs:label "MQTTTopic" ;
+    skos:definition "Topic string on the MQTT broker that carries the messages for this entity" .
+
+
+ref:MQTTReferenceShape a sh:NodeShape ;
+    skos:definition "Infers an MQTTReference instance from the object of an hasExternalReference." ;
+    sh:targetObjectsOf ref:hasExternalReference ;
+    sh:rule [
+      a sh:TripleRule ;
+      sh:condition ref:MQTTReference ;
+      sh:subject sh:this ;
+      sh:predicate rdf:type ;
+      sh:object ref:MQTTReference ;
+    ] ;
+.
