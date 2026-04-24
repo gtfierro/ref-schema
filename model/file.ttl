@@ -10,10 +10,10 @@
 file: a owl:Ontology .
 
 ref:hasFileReference a owl:ObjectProperty ;
-    rdfs:range ref:fileReference ;
+    rdfs:range ref:FileReference ;
     rdfs:subPropertyOf ref:hasExternalReference ;
     rdfs:label "hasFileReference" ;
-    skos:definition "Relates an entity to a fileReference describing a tabular file (e.g. parquet, csv, tsv) that contains the data for this entity" ;
+    skos:definition "Relates an entity to a FileReference describing a tabular file (e.g. parquet, csv, tsv) that contains the data for this entity" ;
 .
 
 ref:FileReference a sh:NodeShape, owl:Class ;
@@ -50,8 +50,8 @@ ref:valueColumnID a owl:DatatypeProperty ;
     skos:definition "Name of the column in the referenced file that contains the values" .
 
 
-ref:fileReferenceShape a sh:NodeShape ;
-    skos:definition "Infers a fileReference instance from the object of an hasExternalReference." ;
+ref:FileReferenceShape a sh:NodeShape ;
+    skos:definition "Infers a FileReference instance from the object of an hasExternalReference." ;
     sh:targetObjectsOf ref:hasExternalReference ;
     sh:rule [
       a sh:TripleRule ;
