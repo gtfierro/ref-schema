@@ -35,8 +35,7 @@ ref:FileReference a sh:NodeShape, owl:Class ;
     sh:property [
         sh:path ref:timeColumnID ;
         sh:datatype xsd:string ;
-        sh:maxCount 1 ;
-        sh:minCount 1 ;
+        sh:minCount 0 ;
     ] ;
 .
 
