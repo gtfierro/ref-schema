@@ -21,6 +21,8 @@
     owl:imports <https://brickschema.org/schema/Brick/ref/bacnet#> ;
     owl:imports <https://brickschema.org/schema/Brick/ref/ifc#> ;
     owl:imports <https://brickschema.org/schema/Brick/ref/csv#> ;
+    owl:imports <https://brickschema.org/schema/Brick/ref/file#> ;
+    owl:imports <https://brickschema.org/schema/Brick/ref/mqtt#> ;
     owl:imports <https://brickschema.org/schema/Brick/ref/tsdb#> ;
     sh:declare [ sh:namespace "http://www.w3.org/2000/01/rdf-schema#"^^xsd:anyURI ;
             sh:prefix "rdfs" ],
