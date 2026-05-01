@@ -7,7 +7,7 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix bacnet: <http://data.ashrae.org/bacnet/2020#> .
+@prefix bacnet: <http://data.ashrae.org/bacnet/> .
 @prefix ifc: <https://brickschema.org/schema/Brick/ref/ifc#> .
 @prefix tsdb: <https://brickschema.org/schema/Brick/ref/tsdb#> .
 @prefix influxdb: <https://brickschema.org/schema/Brick/ref/influxdb#> .
@@ -68,9 +68,9 @@ ref:BACnetReference a owl:Class,
                         sh:datatype xsd:string ;
                         sh:path ref:BACnetURI ] ] ) ;
     sh:property [ a sh:PropertyShape ;
-            sh:class bacnet:BACnetDevice ;
+            sh:class bacnet:device ;
             sh:minCount 1 ;
-            sh:path bacnet:objectOf ] .
+            sh:path bacnet:contains ] .
 
 ref:IFCReference a owl:Class,
         sh:NodeShape ;

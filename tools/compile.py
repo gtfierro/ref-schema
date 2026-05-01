@@ -12,7 +12,7 @@ for ont in imported:
     print(f" - {ont}")
 
 graph.bind("ref", "https://brickschema.org/schema/Brick/ref#")
-graph.bind("bacnet", "http://data.ashrae.org/bacnet/2020#")
+graph.bind("bacnet", "http://data.ashrae.org/bacnet/")
 graph.bind("schemaorg", "http://schema.org/")
 graph.bind("ifc", "https://brickschema.org/schema/Brick/ref/ifc#")
 graph.bind("tsdb", "https://brickschema.org/schema/Brick/ref/tsdb#")
