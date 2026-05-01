@@ -5,11 +5,11 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix bacnet: <http://data.ashrae.org/bacnet/2020#> .
+@prefix bacnet: <http://data.ashrae.org/bacnet/> .
 @prefix bacnetref: <https://brickschema.org/schema/Brick/ref/bacnet#> .
 
 bacnetref: a owl:Ontology ;
-    owl:imports <http://data.ashrae.org/bacnet/2020> ;
+    owl:imports <http://data.ashrae.org/bacnet> ;
 .
 
 
@@ -52,9 +52,9 @@ bacnet:object-type a bacnet:StandardProperty,
     bacnet:propertyRef bacnet:Object_Type ;
     rdfs:subPropertyOf bacnet:ReadableProperty .
 
-bacnet:objectOf a owl:ObjectProperty ;
-    rdfs:label "objectOf" ;
-    rdfs:range bacnet:BACnetDevice ;
+bacnet:contains a owl:ObjectProperty ;
+    rdfs:label "contains" ;
+    rdfs:range bacnet:device ;
     rdfs:comment "The 'parent' BACnet device that hosts this BACnet object." ;
 .
 
